@@ -109,15 +109,17 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     for (const ref of references) {
       console.log(`Traitement référence : ${ref}`);
 
-      // Recherche floue (contains) dans le dossier spécifique
-      const query = `'${DRIVE_FOLDER_ID}' in parents and name contains '${ref.replace(/'/g, "\\'")}' and trashed = false`;
+      // Recherche dans Drive
+      // On cherche dans le nom du fichier OU dans le contenu (fullText)
+      const query = `'${DRIVE_FOLDER_ID}' in parents and (name contains '${ref}' or fullText contains '${ref}') and mimeType = 'application/pdf' and trashed = false`;
+      console.log(`  -> Recherche Drive pour ${ref} (Query: name/fullText contains)`);
 
-      const searchRes = await drive.files.list({
+      const resSearch = await drive.files.list({
         q: query,
-        fields: 'files(id, name, mimeType)',
+        fields: 'files(id, name, webViewLink)',
+        pageSize: 5 // On prend les 5 premiers candidats
       });
-
-      const candidates = searchRes.data.files || [];
+      const candidates = resSearch.data.files || [];
 
       if (candidates.length === 0) {
         logSummary.push(`[INTROUVABLE] Réf: ${ref} -> Aucun fichier correspondant dans Drive.`);
