@@ -283,6 +283,11 @@ async function runIndexation() {
   };
 
   try {
+    // Charger l'index existant pour reprendre si interrompu
+    let existingIndex = await loadIndex();
+    const alreadyIndexedIds = new Set((existingIndex.files || []).map(f => f.fileId));
+    console.log(`Index existant: ${alreadyIndexedIds.size} fichiers déjà indexés`);
+
     // Étape 1: Trouver tous les dossiers
     console.log('Recherche des sous-dossiers...');
     const allFolderIds = await getAllFolderIds(DRIVE_FOLDER_ID);
@@ -293,21 +298,26 @@ async function runIndexation() {
     // Étape 2: Lister tous les PDFs
     console.log('Listage des PDFs...');
     const allPDFs = await getAllPDFs(allFolderIds);
-    console.log(`${allPDFs.length} PDFs trouvés`);
+    console.log(`${allPDFs.length} PDFs trouvés au total`);
+
+    // Filtrer ceux déjà indexés
+    const pdfsToIndex = allPDFs.filter(pdf => !alreadyIndexedIds.has(pdf.id));
+    console.log(`${pdfsToIndex.length} nouveaux PDFs à indexer`);
 
     indexationState.totalFiles = allPDFs.length;
+    indexationState.processedFiles = alreadyIndexedIds.size;
 
     // Étape 3: Analyser chaque PDF
-    const indexedFiles = [];
+    const indexedFiles = [...(existingIndex.files || [])]; // Garder les existants
 
-    for (let i = 0; i < allPDFs.length; i++) {
-      const pdf = allPDFs[i];
+    for (let i = 0; i < pdfsToIndex.length; i++) {
+      const pdf = pdfsToIndex[i];
 
-      indexationState.processedFiles = i;
-      indexationState.progress = Math.round((i / allPDFs.length) * 100);
+      indexationState.processedFiles = alreadyIndexedIds.size + i;
+      indexationState.progress = Math.round(((alreadyIndexedIds.size + i) / allPDFs.length) * 100);
       indexationState.currentFile = pdf.name;
 
-      console.log(`[${i + 1}/${allPDFs.length}] Analyse: ${pdf.name}`);
+      console.log(`[${alreadyIndexedIds.size + i + 1}/${allPDFs.length}] Analyse: ${pdf.name}`);
 
       const references = await extractReferencesFromPDF(pdf.id, pdf.name);
 
@@ -318,11 +328,22 @@ async function runIndexation() {
         references: references
       });
 
+      // Sauvegarde progressive toutes les 10 fichiers
+      if ((i + 1) % 10 === 0) {
+        console.log(`>> Sauvegarde progressive (${indexedFiles.length} fichiers)...`);
+        const partialIndex = {
+          lastIndexed: new Date().toISOString(),
+          totalFiles: indexedFiles.length,
+          files: indexedFiles
+        };
+        await saveIndex(partialIndex);
+      }
+
       // Petite pause pour éviter de surcharger l'API (rate limiting)
-      await new Promise(r => setTimeout(r, 500));
+      await new Promise(r => setTimeout(r, 300));
     }
 
-    // Étape 4: Sauvegarder l'index
+    // Étape 4: Sauvegarder l'index final
     const newIndex = {
       lastIndexed: new Date().toISOString(),
       totalFiles: indexedFiles.length,
