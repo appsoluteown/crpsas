@@ -1,46 +1,84 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// Définition des états du processus
 type ProcessStatus = 'idle' | 'uploading' | 'processing' | 'completed' | 'error';
 
-// Détection de l'environnement - uniquement une fois au chargement
-const IS_LOCAL_DEV = typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-// En production, TOUJOURS utiliser l'URL actuelle, jamais localStorage
+// API base URL detection
 const getApiBaseUrl = (): string => {
-  if (IS_LOCAL_DEV) {
-    // En dev local, permettre l'override via localStorage
-    const saved = localStorage.getItem('crp_api_url');
-    return saved || 'http://localhost:3000';
-  }
-  // PRODUCTION: Toujours utiliser l'origine actuelle
-  // Nettoyer aussi le localStorage pour éviter les problèmes futurs
-  if (localStorage.getItem('crp_api_url')) {
-    localStorage.removeItem('crp_api_url');
-    console.log('[CRP] Cleared stale localStorage API URL');
+  if (typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return 'http://localhost:3000';
   }
   return window.location.origin;
 };
+
+const API_BASE = getApiBaseUrl();
+
+interface IndexStatus {
+  lastIndexed: string | null;
+  totalFiles: number;
+  isRunning: boolean;
+}
+
+interface IndexationProgress {
+  isRunning: boolean;
+  progress: number;
+  currentFile: string;
+  totalFiles: number;
+  processedFiles: number;
+  error: string | null;
+}
 
 export const TechSheetDownloader: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<ProcessStatus>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  // URL du serveur - calculée une seule fois
-  const [serverUrl, setServerUrl] = useState<string>(getApiBaseUrl());
-  const [showConfig, setShowConfig] = useState(false);
-  const [testStatus, setTestStatus] = useState<'none' | 'success' | 'fail'>('none');
+  // Index state
+  const [indexStatus, setIndexStatus] = useState<IndexStatus | null>(null);
+  const [showIndexModal, setShowIndexModal] = useState(false);
+  const [indexProgress, setIndexProgress] = useState<IndexationProgress | null>(null);
+  const [isIndexing, setIsIndexing] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Sauvegarde de l'URL quand elle change
-  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
-    setServerUrl(url);
-    localStorage.setItem('crp_api_url', url);
-    setTestStatus('none'); // Reset test on change
+  // Charger le statut de l'index au démarrage
+  useEffect(() => {
+    fetchIndexStatus();
+  }, []);
+
+  // Polling de la progression si indexation en cours
+  useEffect(() => {
+    let interval: number;
+    if (isIndexing) {
+      interval = window.setInterval(async () => {
+        try {
+          const res = await fetch(`${API_BASE}/api/indexation-progress`);
+          const data: IndexationProgress = await res.json();
+          setIndexProgress(data);
+
+          if (!data.isRunning) {
+            setIsIndexing(false);
+            fetchIndexStatus(); // Rafraîchir le statut final
+          }
+        } catch (e) {
+          console.error('Erreur polling:', e);
+        }
+      }, 2000);
+    }
+    return () => clearInterval(interval);
+  }, [isIndexing]);
+
+  const fetchIndexStatus = async () => {
+    try {
+      const res = await fetch(`${API_BASE}/api/index-status`);
+      const data = await res.json();
+      setIndexStatus(data);
+      if (data.isRunning) {
+        setIsIndexing(true);
+      }
+    } catch (e) {
+      console.error('Erreur récupération statut index:', e);
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,25 +89,28 @@ export const TechSheetDownloader: React.FC = () => {
     }
   };
 
-  const testConnection = async () => {
-    const cleanUrl = serverUrl.replace(/\/$/, '');
+  const startIndexation = async () => {
+    setShowIndexModal(false);
+    setIsIndexing(true);
+    setIndexProgress({
+      isRunning: true,
+      progress: 0,
+      currentFile: 'Démarrage...',
+      totalFiles: 0,
+      processedFiles: 0,
+      error: null
+    });
+
     try {
-      const res = await fetch(`${cleanUrl}/`, { method: 'GET' });
-      if (res.ok) {
-        setTestStatus('success');
-      } else {
-        setTestStatus('fail');
-      }
+      await fetch(`${API_BASE}/api/start-indexation`, { method: 'POST' });
     } catch (e) {
-      setTestStatus('fail');
+      console.error('Erreur démarrage indexation:', e);
+      setIsIndexing(false);
     }
   };
 
   const processFileOnServer = async () => {
     if (!file) return;
-
-    // Nettoyage de l'URL (retirer le slash final si présent)
-    const cleanUrl = serverUrl.replace(/\/$/, '');
 
     try {
       setStatus('uploading');
@@ -79,32 +120,26 @@ export const TechSheetDownloader: React.FC = () => {
 
       setStatus('processing');
 
-      // Appel au vrai Backend avec l'URL configurée
-      const response = await fetch(`${cleanUrl}/api/process-devis`, {
+      const response = await fetch(`${API_BASE}/api/process-devis`, {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        // Tentative de lecture du message d'erreur JSON, sinon texte brut, sinon statut
         let errorText = response.statusText;
         try {
           const errData = await response.json();
           if (errData.error) errorText = errData.error;
-        } catch (e) {
-          // Ignorer si ce n'est pas du JSON
-        }
+        } catch (e) { }
         throw new Error(`Erreur serveur (${response.status}): ${errorText}`);
       }
 
-      // Le serveur renvoie un flux binaire (le fichier ZIP)
       const blob = await response.blob();
 
-      // Déclenchement du téléchargement navigateur
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Fiches_Techniques_Verifiees_${new Date().toISOString().slice(0, 10)}.zip`;
+      a.download = `Fiches_Techniques_${new Date().toISOString().slice(0, 10)}.zip`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -119,6 +154,18 @@ export const TechSheetDownloader: React.FC = () => {
     }
   };
 
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return 'Jamais';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('fr-FR', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
   return (
     <div className="w-full space-y-8 animate-fade-in max-w-4xl mx-auto">
       {/* Header */}
@@ -128,61 +175,95 @@ export const TechSheetDownloader: React.FC = () => {
             Fiches Techniques
           </h2>
           <p className="text-gray-500 text-sm">
-            Traitement sécurisé via API Backend & Google Drive
+            Extraction automatique des fiches techniques depuis Google Drive
           </p>
         </div>
 
-        {/* Bouton Configuration */}
+        {/* Bouton Relancer Indexation */}
         <button
-          onClick={() => setShowConfig(!showConfig)}
-          className="text-xs font-medium text-gray-500 hover:text-[#1B2B4C] flex items-center gap-1 border border-gray-200 rounded px-3 py-1 bg-white"
+          onClick={() => setShowIndexModal(true)}
+          disabled={isIndexing}
+          className={`text-xs font-medium flex items-center gap-2 border rounded px-4 py-2 transition-all ${isIndexing
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed border-gray-200'
+              : 'text-[#1B2B4C] hover:bg-[#1B2B4C] hover:text-white border-[#1B2B4C]'
+            }`}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.157.92c.44.088.863.22 1.266.388l.84-.442c.483-.254 1.082-.112 1.428.337l.547.947c.346.6.223 1.25-.19 1.643l-.715.683c.038.213.064.43.064.653 0 .223-.026.44-.064.653l.715.683c.413.393.536 1.043.19 1.643l-.547.947c-.346.45-.945.591-1.428.337l-.84-.442c-.403.168-.826.3-1.266.388l-.157.92c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.02-.398-1.11-.94l-.157-.92a6.963 6.963 0 01-1.266-.388l-.84.442c-.483.254-1.082.112-1.428-.337l-.547-.947c-.346-.6-.223-1.25.19-1.643l.715-.683a3.543 3.543 0 01-.064-.653c0-.223.026-.44.064-.653l-.715-.683c-.413-.393-.536-1.043-.19-1.643l.547-.947c.346-.45.945-.591 1.428-.337l.84.442c.403-.168.826-.3 1.266-.388l.157-.92z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
           </svg>
-          Config API
+          {isIndexing ? 'Indexation en cours...' : 'Relancer indexation'}
         </button>
       </div>
 
-      {/* Zone de Configuration API */}
-      {showConfig && (
-        <div className="bg-gray-100 p-4 rounded-lg border border-gray-300 text-sm">
-          <label className="block font-semibold text-[#1B2B4C] mb-1">URL du Serveur API Backend</label>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <input
-              type="text"
-              value={serverUrl}
-              onChange={handleUrlChange}
-              placeholder="ex: https://mon-app.run.app"
-              className="flex-1 px-3 py-2 rounded border border-gray-300 focus:outline-none focus:border-[#F08C34]"
-            />
-            <button
-              onClick={testConnection}
-              className="bg-white border border-gray-300 px-4 py-2 rounded hover:bg-gray-50 font-medium text-gray-700"
-            >
-              Tester la connexion
-            </button>
+      {/* Statut de l'index */}
+      {indexStatus && (
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className={`w-3 h-3 rounded-full ${indexStatus.totalFiles > 0 ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
+            <div>
+              <p className="text-sm font-medium text-[#1B2B4C]">
+                Base d'indexation: <span className="text-[#F08C34]">{indexStatus.totalFiles} fiches</span>
+              </p>
+              <p className="text-xs text-gray-500">
+                Dernière mise à jour: {formatDate(indexStatus.lastIndexed)}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Barre de progression d'indexation */}
+      {isIndexing && indexProgress && (
+        <div className="bg-[#1B2B4C] text-white rounded-xl p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-bold text-lg">Indexation en cours...</h3>
+            <span className="text-2xl font-bold text-[#F08C34]">{indexProgress.progress}%</span>
           </div>
 
-          {testStatus === 'success' && (
-            <p className="text-green-600 mt-2 font-medium flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-              Serveur connecté avec succès !
-            </p>
-          )}
+          <div className="w-full bg-white/20 rounded-full h-3 mb-4">
+            <div
+              className="bg-[#F08C34] h-3 rounded-full transition-all duration-500"
+              style={{ width: `${indexProgress.progress}%` }}
+            ></div>
+          </div>
 
-          {testStatus === 'fail' && (
-            <p className="text-red-600 mt-2 font-medium flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
-              Connexion échouée.
-            </p>
-          )}
+          <div className="flex justify-between text-sm text-gray-300">
+            <span>📄 {indexProgress.currentFile}</span>
+            <span>{indexProgress.processedFiles} / {indexProgress.totalFiles} fichiers</span>
+          </div>
 
-          <div className="text-gray-500 mt-2 text-xs border-t border-gray-200 pt-2 mt-2">
-            <p className="font-semibold text-gray-700 mb-1">Si vous utilisez Google Cloud Run :</p>
-            <p>Si vous avez l'erreur <span className="text-red-500">Failed to fetch</span> alors que l'URL est bonne, c'est probablement que votre service est privé.</p>
-            <p className="mt-1">Allez sur la console GCP → Cloud Run → Votre Service → Onglet Security → Cochez <strong>"Allow unauthenticated invocations"</strong>.</p>
+          {indexProgress.error && (
+            <p className="mt-3 text-red-300 text-sm">Erreur: {indexProgress.error}</p>
+          )}
+        </div>
+      )}
+
+      {/* Modal de confirmation */}
+      {showIndexModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 max-w-md mx-4 shadow-2xl">
+            <h3 className="text-xl font-bold text-[#1B2B4C] mb-4">Relancer l'indexation ?</h3>
+            <p className="text-gray-600 mb-6">
+              Cette action va réanalyser tous les PDFs du Google Drive avec l'IA pour extraire les références produits.
+              <br /><br />
+              <strong className="text-[#F08C34]">⚠️ L'index actuel sera remplacé.</strong>
+              <br /><br />
+              Cette opération peut prendre plusieurs minutes selon le nombre de fichiers.
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowIndexModal(false)}
+                className="flex-1 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-50"
+              >
+                Annuler
+              </button>
+              <button
+                onClick={startIndexation}
+                className="flex-1 py-3 bg-[#F08C34] text-white rounded-lg font-bold hover:bg-[#d67a28]"
+              >
+                Confirmer
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -192,9 +273,9 @@ export const TechSheetDownloader: React.FC = () => {
         {/* Zone Upload */}
         <div
           className={`
-              border-2 border-dashed rounded-xl p-10 text-center transition-all cursor-pointer mb-8
-              ${file ? 'border-[#F08C34] bg-orange-50/30' : 'border-gray-300 hover:border-[#F08C34] hover:bg-gray-50'}
-            `}
+            border-2 border-dashed rounded-xl p-10 text-center transition-all cursor-pointer mb-8
+            ${file ? 'border-[#F08C34] bg-orange-50/30' : 'border-gray-300 hover:border-[#F08C34] hover:bg-gray-50'}
+          `}
           onClick={() => status === 'idle' && fileInputRef.current?.click()}
         >
           <input
@@ -217,12 +298,11 @@ export const TechSheetDownloader: React.FC = () => {
           </div>
         </div>
 
-        {/* Bouton Action */}
+        {/* Messages */}
         <div className="space-y-4">
           {status === 'error' && (
             <div className="p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
               <strong>Erreur :</strong> {errorMessage}
-              <p className="text-xs mt-1 text-red-500">Vérifiez la configuration API ci-dessus.</p>
             </div>
           )}
 
@@ -232,12 +312,19 @@ export const TechSheetDownloader: React.FC = () => {
             </div>
           )}
 
+          {/* Warning si pas d'index */}
+          {indexStatus && indexStatus.totalFiles === 0 && (
+            <div className="p-4 bg-yellow-50 text-yellow-800 rounded-lg border border-yellow-200">
+              <strong>⚠️ Index vide</strong> - Lancez d'abord une indexation pour pouvoir rechercher des fiches techniques.
+            </div>
+          )}
+
           <button
             onClick={processFileOnServer}
-            disabled={!file || (status !== 'idle' && status !== 'error')}
+            disabled={!file || (status !== 'idle' && status !== 'error') || isIndexing || (indexStatus?.totalFiles === 0)}
             className={`
               w-full py-5 rounded-xl font-bold text-xl shadow-lg transition-all flex items-center justify-center gap-3
-              ${!file || (status !== 'idle' && status !== 'error')
+              ${!file || (status !== 'idle' && status !== 'error') || isIndexing || (indexStatus?.totalFiles === 0)
                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                 : 'bg-[#1B2B4C] text-white hover:bg-[#2a406c]'}
             `}
@@ -255,14 +342,10 @@ export const TechSheetDownloader: React.FC = () => {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                {status === 'uploading' ? 'Envoi du fichier...' : 'Traitement en cours (Drive & IA)...'}
+                {status === 'uploading' ? 'Envoi du fichier...' : 'Recherche dans l\'index...'}
               </>
             )}
           </button>
-
-          <div className="text-center text-xs text-gray-400 mt-2">
-            Serveur Cible : <span className="font-mono bg-gray-100 px-1 rounded">{serverUrl}</span>
-          </div>
         </div>
 
       </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const { GoogleGenAI, Type } = require("@google/genai");
 const { google } = require('googleapis');
+const { Storage } = require('@google-cloud/storage');
 const archiver = require('archiver');
 const fs = require('fs');
 const cors = require('cors');
@@ -16,7 +17,7 @@ const upload = multer({ dest: os.tmpdir() });
 
 // Configuration CORS permissive pour éviter les erreurs "Blocked by CORS" en dev
 app.use(cors({
-  origin: '*', // En production, idéalement restreindre au domaine du frontend
+  origin: '*',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -25,26 +26,23 @@ app.use(express.json());
 // ============================================================
 // SERVE STATIC FRONTEND (React build from /dist)
 // ============================================================
-// Serve static files from the built React app - MUST be before API routes
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Endpoint de santé pour vérifier que le déploiement GCP est up
-// Accessible via /api/health (ne bloque pas le frontend sur /)
+// Endpoint de santé
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'API CRP Backend is running.' });
 });
 
-
 // CONFIGURATION
 const DRIVE_FOLDER_ID = '1W7gVPXh33TJ2Q7qQULBGd1csycZBUS5S';
+const GCS_BUCKET_NAME = process.env.GCS_BUCKET_NAME || 'crp-indexation';
+const INDEX_FILE_NAME = 'fiches-index.json';
 
 // Configuration Auth Drive
-// Sur GCP (Cloud Run), on utilise Application Default Credentials (ADC) si aucun fichier clé n'est fourni.
 const authConfig = {
   scopes: ['https://www.googleapis.com/auth/drive.readonly'],
 };
 
-// Si un chemin de clé est fourni explicitement (dev local), on l'utilise.
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH) {
   authConfig.keyFile = process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH;
   console.log(`Authentification via fichier clé : ${process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH}`);
@@ -55,8 +53,288 @@ if (process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH) {
 const auth = new google.auth.GoogleAuth(authConfig);
 const drive = google.drive({ version: 'v3', auth });
 
+// GCS pour persister l'index
+const storage = new Storage();
+
 // Initialisation Gemini
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+// ============================================================
+// ÉTAT DE L'INDEXATION (en mémoire)
+// ============================================================
+let indexationState = {
+  isRunning: false,
+  progress: 0,
+  currentFile: '',
+  totalFiles: 0,
+  processedFiles: 0,
+  error: null
+};
+
+// ============================================================
+// FONCTIONS UTILITAIRES POUR L'INDEX
+// ============================================================
+
+async function loadIndex() {
+  try {
+    const bucket = storage.bucket(GCS_BUCKET_NAME);
+    const file = bucket.file(INDEX_FILE_NAME);
+    const [exists] = await file.exists();
+
+    if (!exists) {
+      return { lastIndexed: null, totalFiles: 0, files: [] };
+    }
+
+    const [contents] = await file.download();
+    return JSON.parse(contents.toString());
+  } catch (error) {
+    console.error('Erreur chargement index:', error.message);
+    return { lastIndexed: null, totalFiles: 0, files: [] };
+  }
+}
+
+async function saveIndex(index) {
+  try {
+    const bucket = storage.bucket(GCS_BUCKET_NAME);
+    const file = bucket.file(INDEX_FILE_NAME);
+    await file.save(JSON.stringify(index, null, 2), {
+      contentType: 'application/json'
+    });
+    console.log('Index sauvegardé sur GCS');
+  } catch (error) {
+    console.error('Erreur sauvegarde index:', error.message);
+    throw error;
+  }
+}
+
+// Récupérer tous les sous-dossiers récursivement
+async function getAllFolderIds(parentId) {
+  const folderIds = [parentId];
+
+  const subFoldersRes = await drive.files.list({
+    q: `'${parentId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+    fields: 'files(id, name)',
+    pageSize: 100
+  });
+
+  const subFolders = subFoldersRes.data.files || [];
+
+  for (const folder of subFolders) {
+    const nestedIds = await getAllFolderIds(folder.id);
+    folderIds.push(...nestedIds);
+  }
+
+  return folderIds;
+}
+
+// Récupérer tous les PDFs dans tous les dossiers
+async function getAllPDFs(folderIds) {
+  const allPDFs = [];
+
+  for (const folderId of folderIds) {
+    let pageToken = null;
+
+    do {
+      const res = await drive.files.list({
+        q: `'${folderId}' in parents and mimeType = 'application/pdf' and trashed = false`,
+        fields: 'nextPageToken, files(id, name, webViewLink)',
+        pageSize: 100,
+        pageToken: pageToken
+      });
+
+      allPDFs.push(...(res.data.files || []));
+      pageToken = res.data.nextPageToken;
+    } while (pageToken);
+  }
+
+  return allPDFs;
+}
+
+// Analyser un PDF avec Gemini pour extraire les références
+async function extractReferencesFromPDF(fileId, fileName) {
+  try {
+    // Télécharger le PDF
+    const destResponse = await drive.files.get(
+      { fileId: fileId, alt: 'media' },
+      { responseType: 'stream' }
+    );
+
+    const chunks = [];
+    await new Promise((resolve, reject) => {
+      destResponse.data.on('data', (chunk) => chunks.push(chunk));
+      destResponse.data.on('end', resolve);
+      destResponse.data.on('error', reject);
+    });
+    const pdfBuffer = Buffer.concat(chunks);
+
+    if (pdfBuffer.length === 0) {
+      console.log(`  -> Fichier vide: ${fileName}`);
+      return [];
+    }
+
+    const pdfBase64 = pdfBuffer.toString('base64');
+
+    // Analyser avec Gemini
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: {
+        parts: [
+          { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
+          {
+            text: `Tu es un assistant technique CRP SAS. Analyse cette fiche technique PDF.
+
+Tâche: Extraire TOUTES les références produit mentionnées dans ce document.
+
+Les références produit CRP suivent généralement ces formats:
+- Codes numériques comme "10002000FOND60", "10002000H60E", "10002000TETE"
+- Codes alphanumériques avec des patterns comme "XXXX-XXXX" ou séquences de chiffres/lettres
+
+Instructions:
+1. Lis attentivement tout le document
+2. Identifie toutes les références produit (codes article, numéros de référence)
+3. Retourne une liste JSON de toutes les références uniques trouvées
+
+Si aucune référence n'est trouvée, retourne un tableau vide [].` }
+        ]
+      },
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: Type.ARRAY,
+          items: { type: Type.STRING }
+        }
+      }
+    });
+
+    const references = JSON.parse(response.text || "[]");
+    console.log(`  -> ${fileName}: ${references.length} références trouvées`);
+    return references;
+
+  } catch (error) {
+    console.error(`  -> Erreur analyse ${fileName}:`, error.message);
+    return [];
+  }
+}
+
+// ============================================================
+// ENDPOINTS D'INDEXATION
+// ============================================================
+
+// Statut de l'index
+app.get('/api/index-status', async (req, res) => {
+  try {
+    const index = await loadIndex();
+    res.json({
+      lastIndexed: index.lastIndexed,
+      totalFiles: index.totalFiles || index.files?.length || 0,
+      isRunning: indexationState.isRunning
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Progression de l'indexation en cours
+app.get('/api/indexation-progress', (req, res) => {
+  res.json(indexationState);
+});
+
+// Lancer l'indexation
+app.post('/api/start-indexation', async (req, res) => {
+  if (indexationState.isRunning) {
+    return res.status(400).json({ error: 'Indexation déjà en cours' });
+  }
+
+  // Répondre immédiatement et lancer en arrière-plan
+  res.json({ message: 'Indexation démarrée', status: 'started' });
+
+  // Lancer l'indexation en arrière-plan
+  runIndexation().catch(err => {
+    console.error('Erreur indexation:', err);
+    indexationState.error = err.message;
+    indexationState.isRunning = false;
+  });
+});
+
+async function runIndexation() {
+  console.log('=== DÉBUT INDEXATION ===');
+
+  indexationState = {
+    isRunning: true,
+    progress: 0,
+    currentFile: 'Recherche des dossiers...',
+    totalFiles: 0,
+    processedFiles: 0,
+    error: null
+  };
+
+  try {
+    // Étape 1: Trouver tous les dossiers
+    console.log('Recherche des sous-dossiers...');
+    const allFolderIds = await getAllFolderIds(DRIVE_FOLDER_ID);
+    console.log(`${allFolderIds.length} dossiers trouvés`);
+
+    indexationState.currentFile = 'Listage des PDFs...';
+
+    // Étape 2: Lister tous les PDFs
+    console.log('Listage des PDFs...');
+    const allPDFs = await getAllPDFs(allFolderIds);
+    console.log(`${allPDFs.length} PDFs trouvés`);
+
+    indexationState.totalFiles = allPDFs.length;
+
+    // Étape 3: Analyser chaque PDF
+    const indexedFiles = [];
+
+    for (let i = 0; i < allPDFs.length; i++) {
+      const pdf = allPDFs[i];
+
+      indexationState.processedFiles = i;
+      indexationState.progress = Math.round((i / allPDFs.length) * 100);
+      indexationState.currentFile = pdf.name;
+
+      console.log(`[${i + 1}/${allPDFs.length}] Analyse: ${pdf.name}`);
+
+      const references = await extractReferencesFromPDF(pdf.id, pdf.name);
+
+      indexedFiles.push({
+        fileId: pdf.id,
+        fileName: pdf.name,
+        webViewLink: pdf.webViewLink,
+        references: references
+      });
+
+      // Petite pause pour éviter de surcharger l'API (rate limiting)
+      await new Promise(r => setTimeout(r, 500));
+    }
+
+    // Étape 4: Sauvegarder l'index
+    const newIndex = {
+      lastIndexed: new Date().toISOString(),
+      totalFiles: indexedFiles.length,
+      files: indexedFiles
+    };
+
+    await saveIndex(newIndex);
+
+    indexationState.progress = 100;
+    indexationState.processedFiles = allPDFs.length;
+    indexationState.currentFile = 'Terminé!';
+    indexationState.isRunning = false;
+
+    console.log('=== INDEXATION TERMINÉE ===');
+    console.log(`${indexedFiles.length} fichiers indexés`);
+
+  } catch (error) {
+    console.error('Erreur indexation:', error);
+    indexationState.error = error.message;
+    indexationState.isRunning = false;
+  }
+}
+
+// ============================================================
+// ENDPOINT PROCESS-DEVIS (UTILISE L'INDEX LOCAL)
+// ============================================================
 
 app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
   if (!req.file) {
@@ -64,9 +342,16 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
   }
 
   try {
-    // ---------------------------------------------------------
-    // ÉTAPE 1 : Analyse Gemini du Devis pour extraire les Refs
-    // ---------------------------------------------------------
+    // Charger l'index
+    const index = await loadIndex();
+
+    if (!index.files || index.files.length === 0) {
+      return res.status(400).json({
+        error: 'Index vide. Veuillez lancer l\'indexation d\'abord.'
+      });
+    }
+
+    // ÉTAPE 1: Analyse Gemini du Devis pour extraire les Refs
     console.log('1. Analyse du devis pour extraction des références...');
     const fileBuffer = fs.readFileSync(req.file.path);
     const base64Data = fileBuffer.toString('base64');
@@ -89,160 +374,63 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     });
 
     const references = JSON.parse(geminiExtraction.text || "[]");
-    console.log(`> ${references.length} références identifiées.`);
+    console.log(`> ${references.length} références identifiées: ${references.join(', ')}`);
 
-    // ---------------------------------------------------------
-    // ÉTAPE 2 : Préparation du ZIP
-    // ---------------------------------------------------------
+    // ÉTAPE 2: Recherche dans l'index local
     const archive = archiver('zip', { zlib: { level: 9 } });
-
-    // On pipe l'archive directement dans la réponse HTTP
     res.attachment('fiches_techniques_verifiees.zip');
     archive.pipe(res);
 
     const logSummary = [];
     let filesAddedCount = 0;
+    const addedFileIds = new Set(); // Éviter les doublons
 
-    // ---------------------------------------------------------
-    // ÉTAPE 2.5 : Récupérer TOUS les sous-dossiers (récursif)
-    // ---------------------------------------------------------
-    async function getAllFolderIds(parentId, drive) {
-      const folderIds = [parentId]; // Inclure le dossier parent
-
-      const subFoldersRes = await drive.files.list({
-        q: `'${parentId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
-        fields: 'files(id, name)',
-        pageSize: 100
-      });
-
-      const subFolders = subFoldersRes.data.files || [];
-      console.log(`  -> Sous-dossiers trouvés dans ${parentId}: ${subFolders.map(f => f.name).join(', ') || 'aucun'}`);
-
-      for (const folder of subFolders) {
-        const nestedIds = await getAllFolderIds(folder.id, drive);
-        folderIds.push(...nestedIds);
-      }
-
-      return folderIds;
-    }
-
-    console.log('Recherche des sous-dossiers...');
-    const allFolderIds = await getAllFolderIds(DRIVE_FOLDER_ID, drive);
-    console.log(`Dossiers à parcourir: ${allFolderIds.length}`);
-
-    // ---------------------------------------------------------
-    // ÉTAPE 3 : Boucle sur chaque Référence
-    // ---------------------------------------------------------
     for (const ref of references) {
-      console.log(`Traitement référence : ${ref}`);
+      console.log(`Recherche référence: ${ref}`);
 
-      // Recherche dans TOUS les dossiers (parent + sous-dossiers)
-      // On construit une requête avec OR pour chaque dossier
-      const parentClauses = allFolderIds.map(id => `'${id}' in parents`).join(' or ');
-      const query = `(${parentClauses}) and (name contains '${ref}' or fullText contains '${ref}') and mimeType = 'application/pdf' and trashed = false`;
-      console.log(`  -> Recherche Drive pour ${ref} dans ${allFolderIds.length} dossiers...`);
+      // Chercher dans l'index les fichiers qui contiennent cette référence
+      const matchingFiles = index.files.filter(file =>
+        file.references && file.references.some(r =>
+          r.toLowerCase().includes(ref.toLowerCase()) ||
+          ref.toLowerCase().includes(r.toLowerCase())
+        )
+      );
 
-      const resSearch = await drive.files.list({
-        q: query,
-        fields: 'files(id, name, webViewLink)',
-        pageSize: 10
-      });
-      const candidates = resSearch.data.files || [];
-
-      if (candidates.length === 0) {
-        logSummary.push(`[INTROUVABLE] Réf: ${ref} -> Aucun fichier correspondant dans Drive.`);
+      if (matchingFiles.length === 0) {
+        logSummary.push(`[INTROUVABLE] Réf: ${ref} -> Aucune fiche technique indexée pour cette référence.`);
         continue;
       }
 
-      let verifiedFilesForThisRef = 0;
+      for (const file of matchingFiles) {
+        if (addedFileIds.has(file.fileId)) continue; // Éviter les doublons
 
-      // Boucle sur TOUS les fichiers candidats trouvés dans Drive pour cette réf
-      for (const file of candidates) {
-        if (file.mimeType !== 'application/pdf') continue; // On ne traite que les PDF
+        console.log(`  -> Trouvé: ${file.fileName}`);
 
-        console.log(`  -> Vérification candidat : ${file.name}`);
-
-        // Téléchargement du fichier en buffer pour l'envoyer à Gemini
-        // IMPORTANT: On utilise responseType 'stream' puis on collecte les chunks
-        // car 'arraybuffer' ne fonctionne pas correctement avec le SDK googleapis
-        const destResponse = await drive.files.get(
-          { fileId: file.id, alt: 'media' },
-          { responseType: 'stream' }
-        );
-
-        // Collecter les chunks du stream en un seul buffer
-        const chunks = [];
-        await new Promise((resolve, reject) => {
-          destResponse.data.on('data', (chunk) => chunks.push(chunk));
-          destResponse.data.on('end', resolve);
-          destResponse.data.on('error', reject);
-        });
-        const pdfBuffer = Buffer.concat(chunks);
-
-        console.log(`  -> Téléchargé: ${pdfBuffer.length} bytes`);
-
-        // Vérifier que le buffer n'est pas vide
-        if (pdfBuffer.length === 0) {
-          console.log(`  -> ERREUR: Fichier vide téléchargé pour ${file.name}`);
-          logSummary.push(`[ERREUR] Réf: ${ref} -> Fichier ${file.name} téléchargé mais vide`);
-          continue;
-        }
-
-        const pdfBase64 = pdfBuffer.toString('base64');
-
-        // ---------------------------------------------------------
-        // ÉTAPE 4 : Vérification du contenu par Gemini
-        // ---------------------------------------------------------
+        // Télécharger le PDF
         try {
-          const verifyResp = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: {
-              parts: [
-                { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
-                {
-                  text: `Tu es un assistant technique rigoureux. Tâche: Vérifier la présence d'une référence produit.
-                    
-                    Référence cherchée : "${ref}"
-                    
-                    Instructions :
-                    1. Analyse tout le texte du document PDF fourni.
-                    2. Cherche la référence exacte "${ref}" dans le document.
-                    3. Si la référence est présente, réponds 'true'. Sinon 'false'.
-                    
-                    Réponds uniquement au format JSON.` }
-              ]
-            },
-            config: {
-              responseMimeType: "application/json",
-              responseSchema: {
-                type: Type.OBJECT,
-                properties: {
-                  present: { type: Type.BOOLEAN },
-                }
-              }
-            }
+          const destResponse = await drive.files.get(
+            { fileId: file.fileId, alt: 'media' },
+            { responseType: 'stream' }
+          );
+
+          const chunks = [];
+          await new Promise((resolve, reject) => {
+            destResponse.data.on('data', (chunk) => chunks.push(chunk));
+            destResponse.data.on('end', resolve);
+            destResponse.data.on('error', reject);
           });
+          const pdfBuffer = Buffer.concat(chunks);
 
-          const verificationResult = JSON.parse(verifyResp.text || "{}");
-
-          if (verificationResult.present === true) {
-            // VICTOIRE ! On ajoute au ZIP
-            // On utilise le nom du fichier original du Drive pour le zip
-            archive.append(pdfBuffer, { name: file.name });
-            logSummary.push(`[OK] Réf: ${ref} -> Trouvé et validé dans ${file.name}`);
-            verifiedFilesForThisRef++;
+          if (pdfBuffer.length > 0) {
+            archive.append(pdfBuffer, { name: file.fileName });
+            addedFileIds.add(file.fileId);
             filesAddedCount++;
-          } else {
-            console.log(`  -> Rejeté par IA (Réf absente du contenu)`);
+            logSummary.push(`[OK] Réf: ${ref} -> ${file.fileName}`);
           }
-        } catch (verifErr) {
-          console.error("Erreur vérification IA", verifErr);
-          logSummary.push(`[ERREUR IA] Réf: ${ref} -> Erreur lors de l'analyse de ${file.name}`);
+        } catch (dlError) {
+          console.error(`  -> Erreur téléchargement: ${dlError.message}`);
+          logSummary.push(`[ERREUR] Réf: ${ref} -> Impossible de télécharger ${file.fileName}`);
         }
-      }
-
-      if (verifiedFilesForThisRef === 0) {
-        logSummary.push(`[REJETÉ] Réf: ${ref} -> ${candidates.length} fichiers trouvés mais aucun ne contient la référence exacte à l'intérieur.`);
       }
     }
 
@@ -267,11 +455,9 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
 });
 
 // ============================================================
-// SPA FALLBACK - Serve index.html for all non-API routes
+// SPA FALLBACK
 // ============================================================
-// This must be AFTER all API routes to avoid conflicts
 app.get('*', (req, res) => {
-  // Only serve index.html for non-API routes
   if (!req.path.startsWith('/api/')) {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   } else {
