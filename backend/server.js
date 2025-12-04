@@ -104,20 +104,48 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     let filesAddedCount = 0;
 
     // ---------------------------------------------------------
+    // ÉTAPE 2.5 : Récupérer TOUS les sous-dossiers (récursif)
+    // ---------------------------------------------------------
+    async function getAllFolderIds(parentId, drive) {
+      const folderIds = [parentId]; // Inclure le dossier parent
+
+      const subFoldersRes = await drive.files.list({
+        q: `'${parentId}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+        fields: 'files(id, name)',
+        pageSize: 100
+      });
+
+      const subFolders = subFoldersRes.data.files || [];
+      console.log(`  -> Sous-dossiers trouvés dans ${parentId}: ${subFolders.map(f => f.name).join(', ') || 'aucun'}`);
+
+      for (const folder of subFolders) {
+        const nestedIds = await getAllFolderIds(folder.id, drive);
+        folderIds.push(...nestedIds);
+      }
+
+      return folderIds;
+    }
+
+    console.log('Recherche des sous-dossiers...');
+    const allFolderIds = await getAllFolderIds(DRIVE_FOLDER_ID, drive);
+    console.log(`Dossiers à parcourir: ${allFolderIds.length}`);
+
+    // ---------------------------------------------------------
     // ÉTAPE 3 : Boucle sur chaque Référence
     // ---------------------------------------------------------
     for (const ref of references) {
       console.log(`Traitement référence : ${ref}`);
 
-      // Recherche dans Drive
-      // On cherche dans le nom du fichier OU dans le contenu (fullText)
-      const query = `'${DRIVE_FOLDER_ID}' in parents and (name contains '${ref}' or fullText contains '${ref}') and mimeType = 'application/pdf' and trashed = false`;
-      console.log(`  -> Recherche Drive pour ${ref} (Query: name/fullText contains)`);
+      // Recherche dans TOUS les dossiers (parent + sous-dossiers)
+      // On construit une requête avec OR pour chaque dossier
+      const parentClauses = allFolderIds.map(id => `'${id}' in parents`).join(' or ');
+      const query = `(${parentClauses}) and (name contains '${ref}' or fullText contains '${ref}') and mimeType = 'application/pdf' and trashed = false`;
+      console.log(`  -> Recherche Drive pour ${ref} dans ${allFolderIds.length} dossiers...`);
 
       const resSearch = await drive.files.list({
         q: query,
         fields: 'files(id, name, webViewLink)',
-        pageSize: 5 // On prend les 5 premiers candidats
+        pageSize: 10
       });
       const candidates = resSearch.data.files || [];
 
