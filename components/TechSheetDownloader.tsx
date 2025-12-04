@@ -3,37 +3,37 @@ import React, { useState, useRef, useEffect } from 'react';
 // Définition des états du processus
 type ProcessStatus = 'idle' | 'uploading' | 'processing' | 'completed' | 'error';
 
+// Détection de l'environnement - uniquement une fois au chargement
+const IS_LOCAL_DEV = typeof window !== 'undefined' &&
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+// En production, TOUJOURS utiliser l'URL actuelle, jamais localStorage
+const getApiBaseUrl = (): string => {
+  if (IS_LOCAL_DEV) {
+    // En dev local, permettre l'override via localStorage
+    const saved = localStorage.getItem('crp_api_url');
+    return saved || 'http://localhost:3000';
+  }
+  // PRODUCTION: Toujours utiliser l'origine actuelle
+  // Nettoyer aussi le localStorage pour éviter les problèmes futurs
+  if (localStorage.getItem('crp_api_url')) {
+    localStorage.removeItem('crp_api_url');
+    console.log('[CRP] Cleared stale localStorage API URL');
+  }
+  return window.location.origin;
+};
+
 export const TechSheetDownloader: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<ProcessStatus>('idle');
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  // Gestion de l'URL du serveur
-  // En production (Cloud Run), utiliser l'URL actuelle du site
-  // En dev, utiliser localhost:3000
-  const getDefaultServerUrl = () => {
-    // Si on est sur localhost, utiliser localhost:3000 (dev)
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return 'http://localhost:3000';
-    }
-    // Sinon, utiliser l'origine actuelle (production)
-    return window.location.origin;
-  };
-
-  const [serverUrl, setServerUrl] = useState<string>(getDefaultServerUrl());
+  // URL du serveur - calculée une seule fois
+  const [serverUrl, setServerUrl] = useState<string>(getApiBaseUrl());
   const [showConfig, setShowConfig] = useState(false);
   const [testStatus, setTestStatus] = useState<'none' | 'success' | 'fail'>('none');
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Chargement de l'URL sauvegardée au démarrage (mais seulement en dev)
-  useEffect(() => {
-    const savedUrl = localStorage.getItem('crp_api_url');
-    // N'utiliser l'URL sauvegardée que si on est en localhost
-    if (savedUrl && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-      setServerUrl(savedUrl);
-    }
-  }, []);
 
   // Sauvegarde de l'URL quand elle change
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
