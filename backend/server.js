@@ -131,20 +131,34 @@ async function getAllFolderIds(parentId) {
 async function getAllPDFs(folderIds) {
   const allPDFs = [];
 
-  for (const folderId of folderIds) {
-    let pageToken = null;
+  for (let i = 0; i < folderIds.length; i++) {
+    const folderId = folderIds[i];
+    console.log(`  Scan dossier ${i + 1}/${folderIds.length}: ${folderId}`);
 
-    do {
-      const res = await drive.files.list({
-        q: `'${folderId}' in parents and mimeType = 'application/pdf' and trashed = false`,
-        fields: 'nextPageToken, files(id, name, webViewLink)',
-        pageSize: 100,
-        pageToken: pageToken
-      });
+    try {
+      let pageToken = null;
+      let folderPDFCount = 0;
 
-      allPDFs.push(...(res.data.files || []));
-      pageToken = res.data.nextPageToken;
-    } while (pageToken);
+      do {
+        const res = await drive.files.list({
+          q: `'${folderId}' in parents and mimeType = 'application/pdf' and trashed = false`,
+          fields: 'nextPageToken, files(id, name, webViewLink)',
+          pageSize: 100,
+          pageToken: pageToken
+        });
+
+        const files = res.data.files || [];
+        folderPDFCount += files.length;
+        allPDFs.push(...files);
+        pageToken = res.data.nextPageToken;
+      } while (pageToken);
+
+      if (folderPDFCount > 0) {
+        console.log(`    -> ${folderPDFCount} PDFs trouvés`);
+      }
+    } catch (error) {
+      console.error(`  ERREUR scan dossier ${folderId}:`, error.message);
+    }
   }
 
   return allPDFs;
