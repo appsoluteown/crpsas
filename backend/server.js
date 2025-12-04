@@ -22,16 +22,17 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Endpoint de santé pour vérifier que le déploiement GCP est up
-app.get('/', (req, res) => {
-  res.status(200).send('API CRP Backend is running.');
-});
-
 // ============================================================
 // SERVE STATIC FRONTEND (React build from /dist)
 // ============================================================
-// Serve static files from the built React app
+// Serve static files from the built React app - MUST be before API routes
 app.use(express.static(path.join(__dirname, 'dist')));
+
+// Endpoint de santé pour vérifier que le déploiement GCP est up
+// Accessible via /api/health (ne bloque pas le frontend sur /)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'API CRP Backend is running.' });
+});
 
 
 // CONFIGURATION
