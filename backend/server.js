@@ -16,16 +16,23 @@ const upload = multer({ dest: os.tmpdir() });
 
 // Configuration CORS permissive pour éviter les erreurs "Blocked by CORS" en dev
 app.use(cors({
-    origin: '*', // En production, idéalement restreindre au domaine du frontend
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*', // En production, idéalement restreindre au domaine du frontend
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 
 // Endpoint de santé pour vérifier que le déploiement GCP est up
 app.get('/', (req, res) => {
-    res.status(200).send('API CRP Backend is running.');
+  res.status(200).send('API CRP Backend is running.');
 });
+
+// ============================================================
+// SERVE STATIC FRONTEND (React build from /dist)
+// ============================================================
+// Serve static files from the built React app
+app.use(express.static(path.join(__dirname, 'dist')));
+
 
 // CONFIGURATION
 const DRIVE_FOLDER_ID = '1W7gVPXh33TJ2Q7qQULBGd1csycZBUS5S';
@@ -33,15 +40,15 @@ const DRIVE_FOLDER_ID = '1W7gVPXh33TJ2Q7qQULBGd1csycZBUS5S';
 // Configuration Auth Drive
 // Sur GCP (Cloud Run), on utilise Application Default Credentials (ADC) si aucun fichier clé n'est fourni.
 const authConfig = {
-    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  scopes: ['https://www.googleapis.com/auth/drive.readonly'],
 };
 
 // Si un chemin de clé est fourni explicitement (dev local), on l'utilise.
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH) {
-    authConfig.keyFile = process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH;
-    console.log(`Authentification via fichier clé : ${process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH}`);
+  authConfig.keyFile = process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH;
+  console.log(`Authentification via fichier clé : ${process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH}`);
 } else {
-    console.log('Authentification via ADC (GCP Default)');
+  console.log('Authentification via ADC (GCP Default)');
 }
 
 const auth = new google.auth.GoogleAuth(authConfig);
@@ -87,7 +94,7 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     // ÉTAPE 2 : Préparation du ZIP
     // ---------------------------------------------------------
     const archive = archiver('zip', { zlib: { level: 9 } });
-    
+
     // On pipe l'archive directement dans la réponse HTTP
     res.attachment('fiches_techniques_verifiees.zip');
     archive.pipe(res);
@@ -100,17 +107,17 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     // ---------------------------------------------------------
     for (const ref of references) {
       console.log(`Traitement référence : ${ref}`);
-      
+
       // Recherche floue (contains) dans le dossier spécifique
       const query = `'${DRIVE_FOLDER_ID}' in parents and name contains '${ref.replace(/'/g, "\\'")}' and trashed = false`;
-      
+
       const searchRes = await drive.files.list({
         q: query,
         fields: 'files(id, name, mimeType)',
       });
 
       const candidates = searchRes.data.files || [];
-      
+
       if (candidates.length === 0) {
         logSummary.push(`[INTROUVABLE] Réf: ${ref} -> Aucun fichier correspondant dans Drive.`);
         continue;
@@ -125,23 +132,44 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
         console.log(`  -> Vérification candidat : ${file.name}`);
 
         // Téléchargement du fichier en buffer pour l'envoyer à Gemini
-        const dest = await drive.files.get(
+        // IMPORTANT: On utilise responseType 'stream' puis on collecte les chunks
+        // car 'arraybuffer' ne fonctionne pas correctement avec le SDK googleapis
+        const destResponse = await drive.files.get(
           { fileId: file.id, alt: 'media' },
-          { responseType: 'arraybuffer' }
+          { responseType: 'stream' }
         );
-        const pdfBuffer = Buffer.from(dest.data);
+
+        // Collecter les chunks du stream en un seul buffer
+        const chunks = [];
+        await new Promise((resolve, reject) => {
+          destResponse.data.on('data', (chunk) => chunks.push(chunk));
+          destResponse.data.on('end', resolve);
+          destResponse.data.on('error', reject);
+        });
+        const pdfBuffer = Buffer.concat(chunks);
+
+        console.log(`  -> Téléchargé: ${pdfBuffer.length} bytes`);
+
+        // Vérifier que le buffer n'est pas vide
+        if (pdfBuffer.length === 0) {
+          console.log(`  -> ERREUR: Fichier vide téléchargé pour ${file.name}`);
+          logSummary.push(`[ERREUR] Réf: ${ref} -> Fichier ${file.name} téléchargé mais vide`);
+          continue;
+        }
+
         const pdfBase64 = pdfBuffer.toString('base64');
 
         // ---------------------------------------------------------
         // ÉTAPE 4 : Vérification du contenu par Gemini
         // ---------------------------------------------------------
         try {
-            const verifyResp = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
-                contents: {
-                  parts: [
-                    { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
-                    { text: `Tu es un assistant technique rigoureux. Tâche: Vérifier la présence d'une référence produit.
+          const verifyResp = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: {
+              parts: [
+                { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
+                {
+                  text: `Tu es un assistant technique rigoureux. Tâche: Vérifier la présence d'une référence produit.
                     
                     Référence cherchée : "${ref}"
                     
@@ -151,39 +179,39 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
                     3. Si la référence est présente, réponds 'true'. Sinon 'false'.
                     
                     Réponds uniquement au format JSON.` }
-                  ]
-                },
-                config: {
-                    responseMimeType: "application/json",
-                    responseSchema: {
-                        type: Type.OBJECT,
-                        properties: {
-                            present: { type: Type.BOOLEAN },
-                        }
-                    }
+              ]
+            },
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  present: { type: Type.BOOLEAN },
                 }
-            });
-    
-            const verificationResult = JSON.parse(verifyResp.text || "{}");
-    
-            if (verificationResult.present === true) {
-                // VICTOIRE ! On ajoute au ZIP
-                // On utilise le nom du fichier original du Drive pour le zip
-                archive.append(pdfBuffer, { name: file.name });
-                logSummary.push(`[OK] Réf: ${ref} -> Trouvé et validé dans ${file.name}`);
-                verifiedFilesForThisRef++;
-                filesAddedCount++;
-            } else {
-                console.log(`  -> Rejeté par IA (Réf absente du contenu)`);
+              }
             }
+          });
+
+          const verificationResult = JSON.parse(verifyResp.text || "{}");
+
+          if (verificationResult.present === true) {
+            // VICTOIRE ! On ajoute au ZIP
+            // On utilise le nom du fichier original du Drive pour le zip
+            archive.append(pdfBuffer, { name: file.name });
+            logSummary.push(`[OK] Réf: ${ref} -> Trouvé et validé dans ${file.name}`);
+            verifiedFilesForThisRef++;
+            filesAddedCount++;
+          } else {
+            console.log(`  -> Rejeté par IA (Réf absente du contenu)`);
+          }
         } catch (verifErr) {
-            console.error("Erreur vérification IA", verifErr);
-            logSummary.push(`[ERREUR IA] Réf: ${ref} -> Erreur lors de l'analyse de ${file.name}`);
+          console.error("Erreur vérification IA", verifErr);
+          logSummary.push(`[ERREUR IA] Réf: ${ref} -> Erreur lors de l'analyse de ${file.name}`);
         }
       }
 
       if (verifiedFilesForThisRef === 0) {
-          logSummary.push(`[REJETÉ] Réf: ${ref} -> ${candidates.length} fichiers trouvés mais aucun ne contient la référence exacte à l'intérieur.`);
+        logSummary.push(`[REJETÉ] Réf: ${ref} -> ${candidates.length} fichiers trouvés mais aucun ne contient la référence exacte à l'intérieur.`);
       }
     }
 
@@ -192,18 +220,31 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
 
     console.log(`Traitement terminé. ${filesAddedCount} fichiers ajoutés au ZIP.`);
     await archive.finalize();
-    
+
     // Nettoyage upload
     if (req.file && fs.existsSync(req.file.path)) {
-        fs.unlinkSync(req.file.path);
+      fs.unlinkSync(req.file.path);
     }
 
   } catch (error) {
     console.error("Erreur Globale:", error);
     if (!res.headersSent) {
-        res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error.message });
     }
     if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+  }
+});
+
+// ============================================================
+// SPA FALLBACK - Serve index.html for all non-API routes
+// ============================================================
+// This must be AFTER all API routes to avoid conflicts
+app.get('*', (req, res) => {
+  // Only serve index.html for non-API routes
+  if (!req.path.startsWith('/api/')) {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  } else {
+    res.status(404).json({ error: 'API endpoint not found' });
   }
 });
 
