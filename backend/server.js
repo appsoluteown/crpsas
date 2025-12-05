@@ -197,18 +197,28 @@ async function extractReferencesFromPDF(fileId, fileName) {
           {
             text: `Tu es un assistant technique CRP SAS. Analyse cette fiche technique PDF.
 
-Tâche: Extraire TOUTES les références produit mentionnées dans ce document.
+Tâche: Extraire UNIQUEMENT les références produit COMPLÈTES mentionnées dans ce document.
 
-Les références produit CRP suivent généralement ces formats:
-- Codes numériques comme "10002000FOND60", "10002000H60E", "10002000TETE"
-- Codes alphanumériques avec des patterns comme "XXXX-XXXX" ou séquences de chiffres/lettres
+IMPORTANT - Règles d'extraction:
+1. Une référence VALIDE est un code COMPLET comme:
+   - "10002000FOND60" (chiffres + lettres, 10+ caractères)
+   - "800800H60" (format dimensions + code)
+   - "BOUCHDAL45" (code produit complet)
+   - "15002500H301B" (référence avec variante)
 
-Instructions:
-1. Lis attentivement tout le document
-2. Identifie toutes les références produit (codes article, numéros de référence)
-3. Retourne une liste JSON de toutes les références uniques trouvées
+2. NE PAS extraire les fragments isolés comme:
+   - "H60", "H80", "H100" seuls (ce sont des hauteurs, pas des références)
+   - "TETE" seul (incomplet)
+   - "FOND" seul (incomplet)
+   - Des chiffres seuls comme "1000", "2000"
 
-Si aucune référence n'est trouvée, retourne un tableau vide [].` }
+3. Les références valides contiennent généralement:
+   - Au moins 6 caractères
+   - Un mélange de chiffres et lettres
+   - Des patterns comme: XXXXYYYYZZZZ où X=dimensions, Y=type, Z=variante
+
+Retourne UNIQUEMENT les codes COMPLETS trouvés, pas les fragments.
+Si aucune référence complète n'est trouvée, retourne un tableau vide [].` }
         ]
       },
       config: {
@@ -386,8 +396,8 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
       });
     }
 
-    // ÉTAPE 1: Analyse Gemini du Devis pour extraire les Refs
-    console.log('1. Analyse du devis pour extraction des références...');
+    // ÉTAPE 1: Analyse Gemini du Devis pour extraire les Refs + Descriptions
+    console.log('1. Analyse du devis pour extraction des références et descriptions...');
     const fileBuffer = fs.readFileSync(req.file.path);
     const base64Data = fileBuffer.toString('base64');
 
@@ -396,22 +406,34 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
       contents: {
         parts: [
           { inlineData: { mimeType: 'application/pdf', data: base64Data } },
-          { text: "Analyse ce devis. Identifie la colonne 'Ref Article Client' (ou Référence Article). Extrais la liste de toutes ces références exactes (ex: '10002000FOND60'). Retourne uniquement une liste JSON de chaînes de caractères." }
+          {
+            text: `Analyse ce devis. Pour chaque ligne de produit, extrais:
+- reference: le code article/référence (ex: "10002000FOND60")
+- description: la description complète incluant dimensions et poids (ex: "Elément de fond 1000 x 2000 - H600 - 1645kg")
+
+Retourne un tableau JSON avec ces objets.` }
         ]
       },
       config: {
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.ARRAY,
-          items: { type: Type.STRING }
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              reference: { type: Type.STRING },
+              description: { type: Type.STRING }
+            }
+          }
         }
       }
     });
 
-    const references = JSON.parse(geminiExtraction.text || "[]");
-    console.log(`> ${references.length} références identifiées: ${references.join(', ')}`);
+    const products = JSON.parse(geminiExtraction.text || "[]");
+    console.log(`> ${products.length} produits identifiés`);
+    products.forEach(p => console.log(`  - ${p.reference}: ${p.description}`));
 
-    // ÉTAPE 2: Recherche dans l'index local
+    // ÉTAPE 2: Recherche et vérification dans l'index local
     const archive = archiver('zip', { zlib: { level: 9 } });
     res.attachment('fiches_techniques_verifiees.zip');
     archive.pipe(res);
@@ -420,34 +442,69 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     let filesAddedCount = 0;
     const addedFileIds = new Set(); // Éviter les doublons
 
-    for (const ref of references) {
-      console.log(`Recherche référence: ${ref}`);
+    for (const product of products) {
+      const ref = product.reference;
+      const desc = product.description || '';
+      console.log(`Recherche: ${ref} (${desc})`);
 
       // Chercher dans l'index les fichiers qui contiennent cette référence
       const matchingFiles = index.files.filter(file =>
         file.references && file.references.some(r =>
-          r.toLowerCase().includes(ref.toLowerCase()) ||
-          ref.toLowerCase().includes(r.toLowerCase())
+          r.toLowerCase() === ref.toLowerCase() ||
+          r.toLowerCase().includes(ref.toLowerCase())
         )
       );
 
       if (matchingFiles.length === 0) {
-        logSummary.push(`[INTROUVABLE] Réf: ${ref} -> Aucune fiche technique indexée pour cette référence.`);
+        logSummary.push(`[INTROUVABLE] Réf: ${ref} -> Aucune fiche technique indexée.`);
         continue;
       }
 
+      console.log(`  -> ${matchingFiles.length} fichier(s) candidat(s)`);
+
+      // Si un seul match, on le prend directement
+      if (matchingFiles.length === 1) {
+        const file = matchingFiles[0];
+        if (!addedFileIds.has(file.fileId)) {
+          try {
+            const destResponse = await drive.files.get(
+              { fileId: file.fileId, alt: 'media' },
+              { responseType: 'stream' }
+            );
+            const chunks = [];
+            await new Promise((resolve, reject) => {
+              destResponse.data.on('data', (chunk) => chunks.push(chunk));
+              destResponse.data.on('end', resolve);
+              destResponse.data.on('error', reject);
+            });
+            const pdfBuffer = Buffer.concat(chunks);
+            if (pdfBuffer.length > 0) {
+              archive.append(pdfBuffer, { name: file.fileName });
+              addedFileIds.add(file.fileId);
+              filesAddedCount++;
+              logSummary.push(`[OK] Réf: ${ref} -> ${file.fileName}`);
+            }
+          } catch (e) {
+            logSummary.push(`[ERREUR] Réf: ${ref} -> Téléchargement échoué`);
+          }
+        }
+        continue;
+      }
+
+      // Plusieurs matchs: utiliser Gemini pour vérifier lequel correspond vraiment
+      let bestMatch = null;
+
       for (const file of matchingFiles) {
-        if (addedFileIds.has(file.fileId)) continue; // Éviter les doublons
+        if (addedFileIds.has(file.fileId)) continue;
 
-        console.log(`  -> Trouvé: ${file.fileName}`);
+        console.log(`  -> Vérification: ${file.fileName}`);
 
-        // Télécharger le PDF
         try {
+          // Télécharger le PDF pour vérification
           const destResponse = await drive.files.get(
             { fileId: file.fileId, alt: 'media' },
             { responseType: 'stream' }
           );
-
           const chunks = [];
           await new Promise((resolve, reject) => {
             destResponse.data.on('data', (chunk) => chunks.push(chunk));
@@ -456,16 +513,57 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
           });
           const pdfBuffer = Buffer.concat(chunks);
 
-          if (pdfBuffer.length > 0) {
+          if (pdfBuffer.length === 0) continue;
+
+          const pdfBase64 = pdfBuffer.toString('base64');
+
+          // Demander à Gemini de vérifier si ce PDF contient le produit exact
+          const verifyResp = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: {
+              parts: [
+                { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
+                {
+                  text: `Vérifie si cette fiche technique correspond au produit suivant:
+Référence: ${ref}
+Description: ${desc}
+
+Réponds:
+- "match": true si la fiche contient ce produit EXACT (même référence ET caractéristiques similaires comme dimensions/poids)
+- "match": false si la référence n'est pas présente ou si les caractéristiques ne correspondent pas
+- "reason": explication courte` }
+              ]
+            },
+            config: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  match: { type: Type.BOOLEAN },
+                  reason: { type: Type.STRING }
+                }
+              }
+            }
+          });
+
+          const verifyResult = JSON.parse(verifyResp.text || "{}");
+          console.log(`    -> Match: ${verifyResult.match} (${verifyResult.reason})`);
+
+          if (verifyResult.match === true) {
             archive.append(pdfBuffer, { name: file.fileName });
             addedFileIds.add(file.fileId);
             filesAddedCount++;
-            logSummary.push(`[OK] Réf: ${ref} -> ${file.fileName}`);
+            logSummary.push(`[OK] Réf: ${ref} -> ${file.fileName} (vérifié: ${verifyResult.reason})`);
+            bestMatch = file;
+            break; // On a trouvé le bon, on arrête
           }
-        } catch (dlError) {
-          console.error(`  -> Erreur téléchargement: ${dlError.message}`);
-          logSummary.push(`[ERREUR] Réf: ${ref} -> Impossible de télécharger ${file.fileName}`);
+        } catch (e) {
+          console.error(`    -> Erreur vérification: ${e.message}`);
         }
+      }
+
+      if (!bestMatch) {
+        logSummary.push(`[AMBIGU] Réf: ${ref} -> ${matchingFiles.length} fichiers trouvés mais aucun ne correspond exactement à "${desc}"`);
       }
     }
 
