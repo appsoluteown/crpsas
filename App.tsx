@@ -33,6 +33,20 @@ function App() {
     return (
       <div className="min-h-screen bg-[#1B2B4C] flex items-center justify-center p-4 font-sans">
         <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+          {/* Video en cercle */}
+          <div className="flex justify-center mb-6">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#F08C34] shadow-lg">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                <source src="https://storage.googleapis.com/ai-studio-bucket-514203127956-us-west1/video/The_dog_is_202512050927_15lo0.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
           <div className="flex justify-center mb-8">
             <img
               src="https://www.crpsas.com/app/themes/crpsas/assets/images/logo.svg"
@@ -95,8 +109,8 @@ function App() {
           <button
             onClick={() => setCurrentTool('comparator')}
             className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 group ${currentTool === 'comparator'
-                ? 'bg-[#F08C34] text-white shadow-lg'
-                : 'text-gray-300 hover:bg-white/10 hover:text-white'
+              ? 'bg-[#F08C34] text-white shadow-lg'
+              : 'text-gray-300 hover:bg-white/10 hover:text-white'
               }`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -108,8 +122,8 @@ function App() {
           <button
             onClick={() => setCurrentTool('tech-sheets')}
             className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 group ${currentTool === 'tech-sheets'
-                ? 'bg-[#F08C34] text-white shadow-lg'
-                : 'text-gray-300 hover:bg-white/10 hover:text-white'
+              ? 'bg-[#F08C34] text-white shadow-lg'
+              : 'text-gray-300 hover:bg-white/10 hover:text-white'
               }`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
