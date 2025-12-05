@@ -328,8 +328,8 @@ async function runIndexation() {
         references: references
       });
 
-      // Sauvegarde progressive toutes les 10 fichiers
-      if ((i + 1) % 10 === 0) {
+      // Sauvegarde progressive toutes les 5 fichiers
+      if ((i + 1) % 5 === 0) {
         console.log(`>> Sauvegarde progressive (${indexedFiles.length} fichiers)...`);
         const partialIndex = {
           lastIndexed: new Date().toISOString(),
