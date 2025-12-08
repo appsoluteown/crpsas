@@ -188,8 +188,12 @@ async function extractReferencesFromPDF(fileId, fileName) {
 
     const pdfBase64 = pdfBuffer.toString('base64');
 
-    // Analyser avec Gemini
-    const response = await ai.models.generateContent({
+    // Analyser avec Gemini avec Timeout de 30s
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Timeout Gemini')), 30000)
+    );
+
+    const analysisPromise = ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: {
         parts: [
@@ -229,6 +233,8 @@ Si aucune référence complète n'est trouvée, retourne un tableau vide [].` }
         }
       }
     });
+
+    const response = await Promise.race([analysisPromise, timeoutPromise]);
 
     const references = JSON.parse(response.text || "[]");
     console.log(`  -> ${fileName}: ${references.length} références trouvées`);
