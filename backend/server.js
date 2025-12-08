@@ -348,7 +348,13 @@ async function runIndexation() {
 
       console.log(`[${alreadyIndexedIds.size + i + 1}/${allPDFs.length}] Analyse: ${pdf.name}`);
 
-      const references = await extractReferencesFromPDF(pdf.id, pdf.name);
+      let references = [];
+      try {
+        references = await extractReferencesFromPDF(pdf.id, pdf.name);
+      } catch (err) {
+        console.error(`  -> Erreur analyse ${pdf.name}: ${err.message}. Ignoré.`);
+        references = []; // On continue avec 0 références
+      }
 
       indexedFiles.push({
         fileId: pdf.id,
