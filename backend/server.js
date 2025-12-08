@@ -174,11 +174,24 @@ async function extractReferencesFromPDF(fileId, fileName) {
     );
 
     const chunks = [];
-    await new Promise((resolve, reject) => {
+    const downloadPromise = new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        destResponse.data.destroy(); // Tuer le stream
+        reject(new Error('Timeout Download (30s)'));
+      }, 30000);
+
       destResponse.data.on('data', (chunk) => chunks.push(chunk));
-      destResponse.data.on('end', resolve);
-      destResponse.data.on('error', reject);
+      destResponse.data.on('end', () => {
+        clearTimeout(timer);
+        resolve();
+      });
+      destResponse.data.on('error', (err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
     });
+
+    await downloadPromise;
     const pdfBuffer = Buffer.concat(chunks);
 
     if (pdfBuffer.length === 0) {
