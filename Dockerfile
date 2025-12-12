@@ -1,28 +1,6 @@
-# Build stage - Frontend
-FROM node:20-alpine AS frontend-builder
+# Simple single-stage production Dockerfile
+# Uses pre-built frontend from local dist/
 
-WORKDIR /app
-
-# Copy frontend package files
-COPY package.json ./
-COPY tsconfig.json ./
-COPY vite.config.ts ./
-
-# Install frontend dependencies
-RUN npm install
-
-# Copy frontend source
-COPY index.html ./
-COPY index.tsx ./
-COPY App.tsx ./
-COPY components/ ./components/
-COPY constants.ts ./
-COPY types.ts ./
-
-# Build frontend
-RUN npm run build
-
-# Production stage
 FROM node:20-alpine
 
 WORKDIR /app
@@ -36,8 +14,11 @@ RUN npm install --production
 # Copy backend source
 COPY backend/server.js ./
 
-# Copy built frontend from build stage
-COPY --from=frontend-builder /app/dist ./dist
+# Copy pre-built frontend (from local npm run build)
+COPY dist ./dist
+
+# Copy static assets
+COPY public/vite.svg ./dist/vite.svg 2>/dev/null || true
 
 # Expose Cloud Run default port
 EXPOSE 8080
