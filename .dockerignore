@@ -4,9 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build output - now INCLUDING dist for deployment
-# dist
-# dist-ssr
+# Build output
+dist
+dist-ssr
 
 # Environment files
 .env
