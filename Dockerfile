@@ -21,7 +21,7 @@ RUN npm install
 RUN npm run build
 
 # Debug: show what was built
-RUN ls -la dist/ && cat dist/index.html | head -20
+RUN ls -la dist/ && echo "=== FULL INDEX.HTML ===" && cat dist/index.html && echo "=== END ==="
 
 # Production stage
 FROM node:20-alpine
