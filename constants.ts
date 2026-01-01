@@ -1,0 +1,2736 @@
+import { TransportData } from './types';
+
+export const TRANSPORT_DATA: TransportData = {
+  "fichier": "Re_cap_transports_tarifs.xlsx",
+  "description": "Grille tarifaire transport - France",
+  "date_extraction": "2025-12-15",
+  "feuilles": [
+    {
+      "nom": "Général - Taut",
+      "type": "Taut",
+      "info": "TAXE GAZOLE COMPRISE",
+      "facteurs_taxe_gazole": {
+        "BBL": 1.07,
+        "GEODIS": 1.085,
+        "KUEHNE": 1.065,
+        "LACHAUD24": 1.1,
+        "XPO": 1.06,
+        "LAVILAINOISE": 1.02,
+        "SCHENKER": 1.02,
+        "MRCI": 1.06,
+        "BETOTRANS": 1
+      },
+      "pays": "France",
+      "transporteurs": [
+        "BBL",
+        "BETOTRANS",
+        "GEODIS",
+        "KUEHNE",
+        "LACHAUD24",
+        "LAVILAINOISE",
+        "MRCI",
+        "SCHENKER",
+        "XPO"
+      ],
+      "nombre_departements": 103,
+      "tarifs": [
+        {
+          "departement": "1 - Ain",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 585.75,
+            "SCHENKER": 585.48,
+            "GEODIS": 641.24,
+            "XPO": 641.3,
+            "LAVILAINOISE": 642.6,
+            "BBL": 679.45,
+            "MRCI": 673.1,
+            "BETOTRANS": 707
+          }
+        },
+        {
+          "departement": "2 - Aisne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 786.45,
+            "MRCI": 797.12,
+            "XPO": 810.9,
+            "SCHENKER": 829.26,
+            "GEODIS": 899.46,
+            "KUEHNE": 883.95,
+            "LAVILAINOISE": 969,
+            "BETOTRANS": 1080
+          }
+        },
+        {
+          "departement": "3 - Allier",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 362.1,
+            "BBL": 390.55,
+            "MRCI": 386.9,
+            "GEODIS": 403.62,
+            "SCHENKER": 426.36,
+            "XPO": 449.44,
+            "LAVILAINOISE": 438.6,
+            "BETOTRANS": 492
+          }
+        },
+        {
+          "departement": "4 - Alpes Haute Provence",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 874.5,
+            "SCHENKER": 913.92,
+            "GEODIS": 1007.96,
+            "BBL": 1011.15,
+            "MRCI": 1032.44,
+            "KUEHNE": 1065,
+            "BETOTRANS": 1047,
+            "LAVILAINOISE": 1162.8
+          }
+        },
+        {
+          "departement": "5 - Hautes Alpes",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 869.2,
+            "GEODIS": 903.8,
+            "SCHENKER": 913.92,
+            "BBL": 1011.15,
+            "MRCI": 1032.44,
+            "KUEHNE": 1065,
+            "BETOTRANS": 1022,
+            "LAVILAINOISE": 1132.2
+          }
+        },
+        {
+          "departement": "6 - Alpes Maritime",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 991.1,
+            "GEODIS": 1058.96,
+            "BBL": 1070,
+            "KUEHNE": 1065,
+            "SCHENKER": 1036.32,
+            "MRCI": 1144.8,
+            "BETOTRANS": 1165,
+            "LAVILAINOISE": 1402.5
+          }
+        },
+        {
+          "departement": "7 - Ardèche",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 548.76,
+            "XPO": 573.46,
+            "BETOTRANS": 589,
+            "BBL": 642,
+            "KUEHNE": 649.65,
+            "MRCI": 659.32,
+            "GEODIS": 724.78,
+            "LAVILAINOISE": 703.8
+          }
+        },
+        {
+          "departement": "8 - Ardennes",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 905.25,
+            "XPO": 909.48,
+            "BBL": 946.95,
+            "SCHENKER": 913.92,
+            "MRCI": 962.48,
+            "GEODIS": 1029.66,
+            "LAVILAINOISE": 1111.8,
+            "BETOTRANS": 1207
+          }
+        },
+        {
+          "departement": "9 - Ariège",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 488.25,
+            "XPO": 524.7,
+            "BBL": 535,
+            "KUEHNE": 532.5,
+            "SCHENKER": 524.28,
+            "MRCI": 550.14,
+            "BETOTRANS": 536,
+            "LAVILAINOISE": 703.8
+          }
+        },
+        {
+          "departement": "10 - Aube",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 681.6,
+            "XPO": 694.3,
+            "BBL": 711.55,
+            "MRCI": 721.86,
+            "SCHENKER": 694.62,
+            "GEODIS": 818.09,
+            "LAVILAINOISE": 836.4,
+            "BETOTRANS": 962
+          }
+        },
+        {
+          "departement": "11 - Aude ",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 461.1,
+            "GEODIS": 488.25,
+            "SCHENKER": 487.56,
+            "BBL": 518.95,
+            "MRCI": 520.46,
+            "KUEHNE": 660.3,
+            "BETOTRANS": 622,
+            "LAVILAINOISE": 703.8
+          }
+        },
+        {
+          "departement": "12 - Aveyron ZONE A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 406.6,
+            "GEODIS": 413.38,
+            "MRCI": 412.34,
+            "KUEHNE": 426,
+            "LAVILAINOISE": 418.2,
+            "SCHENKER": 426.36,
+            "XPO": 466.4,
+            "BETOTRANS": 471
+          }
+        },
+        {
+          "departement": "12 - Aveyron ZONE B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 406.6,
+            "GEODIS": 413.38,
+            "MRCI": 412.34,
+            "KUEHNE": 426,
+            "LAVILAINOISE": 418.2,
+            "SCHENKER": 426.36,
+            "XPO": 466.4,
+            "BETOTRANS": 471
+          }
+        },
+        {
+          "departement": "13 - Bouches du Rhone",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 807.24,
+            "BBL": 802.5,
+            "KUEHNE": 820.05,
+            "XPO": 816.2,
+            "MRCI": 823.62,
+            "LAVILAINOISE": 814.98,
+            "SCHENKER": 841.5,
+            "BETOTRANS": 896
+          }
+        },
+        {
+          "departement": "14 - Calvados",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 757.9,
+            "KUEHNE": 777.45,
+            "GEODIS": 818.09,
+            "BBL": 818.55,
+            "MRCI": 823.62,
+            "SCHENKER": 792.54,
+            "BETOTRANS": 891,
+            "LAVILAINOISE": 999.6
+          }
+        },
+        {
+          "departement": "15 - Cantal ZONE A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 266.25,
+            "GEODIS": 272.33,
+            "SCHENKER": 304.98,
+            "BETOTRANS": 315,
+            "BBL": 342.4,
+            "MRCI": 365.7,
+            "LAVILAINOISE": 377.4,
+            "XPO": 408.1
+          }
+        },
+        {
+          "departement": "15 - Cantal ZONE B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 266.25,
+            "GEODIS": 272.33,
+            "SCHENKER": 304.98,
+            "BETOTRANS": 315,
+            "BBL": 342.4,
+            "MRCI": 365.7,
+            "LAVILAINOISE": 377.4,
+            "XPO": 408.1
+          }
+        },
+        {
+          "departement": "16 - Charente",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 326.58,
+            "SCHENKER": 348.84,
+            "BBL": 374.5,
+            "MRCI": 400.68,
+            "XPO": 408.1,
+            "BETOTRANS": 414,
+            "LAVILAINOISE": 438.6,
+            "KUEHNE": 468.6
+          }
+        },
+        {
+          "departement": "17 - Charente Maritime",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 481.5,
+            "GEODIS": 488.25,
+            "MRCI": 492.9,
+            "KUEHNE": 500.55,
+            "XPO": 524.7,
+            "SCHENKER": 536.52,
+            "LAVILAINOISE": 561,
+            "BETOTRANS": 596
+          }
+        },
+        {
+          "departement": "18 - Cher",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 428.4,
+            "GEODIS": 456.78,
+            "BBL": 476.15,
+            "XPO": 478.06,
+            "SCHENKER": 463.08,
+            "MRCI": 492.9,
+            "KUEHNE": 532.5,
+            "BETOTRANS": 525
+          }
+        },
+        {
+          "departement": "19 - Correze ZONE A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BETOTRANS": 204,
+            "GEODIS": 270.16,
+            "KUEHNE": 266.25,
+            "LAVILAINOISE": 255,
+            "MRCI": 274.54,
+            "SCHENKER": 280.5,
+            "BBL": 310.3,
+            "XPO": 349.8
+          }
+        },
+        {
+          "departement": "19 - Corrèze ZONE B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BETOTRANS": 204,
+            "GEODIS": 270.16,
+            "KUEHNE": 266.25,
+            "LAVILAINOISE": 255,
+            "MRCI": 274.54,
+            "SCHENKER": 280.5,
+            "BBL": 310.3,
+            "XPO": 349.8
+          }
+        },
+        {
+          "departement": "21 : Côte d'Or",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 646.45,
+            "SCHENKER": 634.44,
+            "XPO": 676.28,
+            "GEODIS": 695.49,
+            "LAVILAINOISE": 663,
+            "BBL": 759.7,
+            "MRCI": 790.76,
+            "BETOTRANS": 792
+          }
+        },
+        {
+          "departement": "22 - Côtes d'Armor",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 820.05,
+            "XPO": 862.84,
+            "GEODIS": 911.4,
+            "SCHENKER": 901.68,
+            "BBL": 1016.5,
+            "MRCI": 1065.3,
+            "BETOTRANS": 1013,
+            "LAVILAINOISE": 1173
+          }
+        },
+        {
+          "departement": "23 - Creuse",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 300.55,
+            "KUEHNE": 340.8,
+            "LAVILAINOISE": 326.4,
+            "BBL": 353.1,
+            "SCHENKER": 341.7,
+            "MRCI": 378.42,
+            "BETOTRANS": 393,
+            "XPO": 452.62
+          }
+        },
+        {
+          "departement": "24 - Dordogne ZONE A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 272.33,
+            "MRCI": 274.54,
+            "KUEHNE": 287.55,
+            "BBL": 321,
+            "BETOTRANS": 322,
+            "SCHENKER": 335.58,
+            "XPO": 349.8,
+            "LAVILAINOISE": 367.2
+          }
+        },
+        {
+          "departement": "24 - Dordogne ZONE B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 272.33,
+            "MRCI": 274.54,
+            "KUEHNE": 287.55,
+            "BBL": 321,
+            "BETOTRANS": 322,
+            "SCHENKER": 335.58,
+            "XPO": 349.8,
+            "LAVILAINOISE": 367.2
+          }
+        },
+        {
+          "departement": "25 - Doubs",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 716.9,
+            "SCHENKER": 706.86,
+            "XPO": 734.58,
+            "MRCI": 738.82,
+            "KUEHNE": 766.8,
+            "LAVILAINOISE": 734.4,
+            "GEODIS": 785.54,
+            "BETOTRANS": 898
+          }
+        },
+        {
+          "departement": "26 - Drôme",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 583,
+            "SCHENKER": 573.24,
+            "KUEHNE": 649.65,
+            "GEODIS": 669.44,
+            "MRCI": 664.62,
+            "LAVILAINOISE": 663,
+            "BBL": 716.9,
+            "BETOTRANS": 925
+          }
+        },
+        {
+          "departement": "27 - Eure",
+          "prix_par_transporteur": {
+            "KUEHNE": 692.25,
+            "LACHAUD24": 715,
+            "SCHENKER": 694.62,
+            "XPO": 722.92,
+            "GEODIS": 742.14,
+            "BBL": 775.75,
+            "LAVILAINOISE": 765,
+            "MRCI": 823.62,
+            "BETOTRANS": 884
+          }
+        },
+        {
+          "departement": "28 - Eure et Loire",
+          "prix_par_transporteur": {
+            "GEODIS": 624.96,
+            "BBL": 631.3,
+            "LACHAUD24": 649,
+            "MRCI": 629.64,
+            "KUEHNE": 639,
+            "XPO": 641.3,
+            "LAVILAINOISE": 663,
+            "SCHENKER": 670.14,
+            "BETOTRANS": 743
+          }
+        },
+        {
+          "departement": "29 - Finistère",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 904.18,
+            "GEODIS": 942.87,
+            "KUEHNE": 947.85,
+            "SCHENKER": 944.52,
+            "BBL": 1005.8,
+            "MRCI": 1065.3,
+            "BETOTRANS": 1076,
+            "LAVILAINOISE": 1213.8
+          }
+        },
+        {
+          "departement": "30 - Gard",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 617.98,
+            "MRCI": 686.88,
+            "GEODIS": 711.76,
+            "SCHENKER": 670.14,
+            "BBL": 738.3,
+            "BETOTRANS": 699,
+            "KUEHNE": 745.5,
+            "LAVILAINOISE": 765
+          }
+        },
+        {
+          "departement": "31 - Haute Garonne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 351.45,
+            "GEODIS": 362.39,
+            "BBL": 395.9,
+            "MRCI": 405.98,
+            "SCHENKER": 393.72,
+            "BETOTRANS": 475,
+            "LAVILAINOISE": 489.6,
+            "XPO": 524.7
+          }
+        },
+        {
+          "departement": "32 - Gers",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 362.39,
+            "KUEHNE": 394.05,
+            "BBL": 470.8,
+            "MRCI": 480.18,
+            "XPO": 542.72,
+            "SCHENKER": 536.52,
+            "BETOTRANS": 568,
+            "LAVILAINOISE": 663
+          }
+        },
+        {
+          "departement": "33 - Gironde ZONE A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 362.39,
+            "BBL": 395.9,
+            "MRCI": 400.68,
+            "KUEHNE": 404.7,
+            "XPO": 408.1,
+            "SCHENKER": 393.72,
+            "BETOTRANS": 428,
+            "LAVILAINOISE": 663
+          }
+        },
+        {
+          "departement": "33 - Gironde ZONE B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 362.39,
+            "BBL": 395.9,
+            "MRCI": 400.68,
+            "KUEHNE": 404.7,
+            "XPO": 408.1,
+            "SCHENKER": 393.72,
+            "BETOTRANS": 428,
+            "LAVILAINOISE": 663
+          }
+        },
+        {
+          "departement": "34 - Hérault",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 571.2,
+            "XPO": 617.98,
+            "MRCI": 629.64,
+            "BETOTRANS": 607,
+            "GEODIS": 669.44,
+            "BBL": 674.1,
+            "SCHENKER": 645.66,
+            "KUEHNE": 724.2
+          }
+        },
+        {
+          "departement": "35 - Ille et VIlaine",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 676.28,
+            "SCHENKER": 670.14,
+            "GEODIS": 770.35,
+            "MRCI": 755.78,
+            "KUEHNE": 777.45,
+            "BBL": 823.9,
+            "LAVILAINOISE": 805.8,
+            "BETOTRANS": 843
+          }
+        },
+        {
+          "departement": "36 - Indre",
+          "prix_par_transporteur": {
+            "KUEHNE": 404.7,
+            "GEODIS": 413.38,
+            "BBL": 411.95,
+            "SCHENKER": 393.72,
+            "MRCI": 412.34,
+            "LAVILAINOISE": 408,
+            "LACHAUD24": 473,
+            "BETOTRANS": 443,
+            "XPO": 524.7
+          }
+        },
+        {
+          "departement": "37 - Indre et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD24": 495,
+            "GEODIS": 493.68,
+            "XPO": 519.4,
+            "MRCI": 526.82,
+            "BBL": 535,
+            "KUEHNE": 532.5,
+            "SCHENKER": 524.28,
+            "BETOTRANS": 569,
+            "LAVILAINOISE": 642.6
+          }
+        },
+        {
+          "departement": "38 - Isère",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 585.48,
+            "KUEHNE": 617.7,
+            "XPO": 617.98,
+            "GEODIS": 675.95,
+            "LAVILAINOISE": 663,
+            "BBL": 706.2,
+            "MRCI": 755.78,
+            "BETOTRANS": 813
+          }
+        },
+        {
+          "departement": "39 - Jura",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 609.96,
+            "XPO": 641.3,
+            "LAVILAINOISE": 663,
+            "GEODIS": 711.76,
+            "BBL": 738.3,
+            "KUEHNE": 745.5,
+            "MRCI": 755.78,
+            "BETOTRANS": 842
+          }
+        },
+        {
+          "departement": "40 - Landes",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 524.7,
+            "GEODIS": 550.1,
+            "KUEHNE": 543.15,
+            "MRCI": 550.14,
+            "BBL": 556.4,
+            "SCHENKER": 548.76,
+            "BETOTRANS": 639,
+            "LAVILAINOISE": 744.6
+          }
+        },
+        {
+          "departement": "41 - Loir et Cher",
+          "prix_par_transporteur": {
+            "LAVILAINOISE": 438.6,
+            "GEODIS": 493.68,
+            "LACHAUD24": 517,
+            "XPO": 513.04,
+            "BBL": 529.65,
+            "MRCI": 526.82,
+            "KUEHNE": 532.5,
+            "SCHENKER": 524.28,
+            "BETOTRANS": 570
+          }
+        },
+        {
+          "departement": "42 - Loire",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 438.6,
+            "BBL": 481.5,
+            "KUEHNE": 479.25,
+            "GEODIS": 495.84,
+            "MRCI": 492.9,
+            "BETOTRANS": 471,
+            "SCHENKER": 487.56,
+            "XPO": 554.38
+          }
+        },
+        {
+          "departement": "43 - Haute Loire",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 426,
+            "GEODIS": 480.65,
+            "BBL": 476.15,
+            "LAVILAINOISE": 469.2,
+            "MRCI": 492.9,
+            "SCHENKER": 487.56,
+            "BETOTRANS": 479,
+            "XPO": 524.7
+          }
+        },
+        {
+          "departement": "44 - Loire Atlantique",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 575.1,
+            "GEODIS": 608.68,
+            "LAVILAINOISE": 591.6,
+            "BBL": 625.95,
+            "MRCI": 641.3,
+            "XPO": 641.3,
+            "SCHENKER": 657.9,
+            "BETOTRANS": 717
+          }
+        },
+        {
+          "departement": "45 - Loiret",
+          "prix_par_transporteur": {
+            "GEODIS": 495.84,
+            "MRCI": 526.82,
+            "BBL": 556.4,
+            "XPO": 554.38,
+            "SCHENKER": 536.52,
+            "KUEHNE": 575.1,
+            "LACHAUD24": 594,
+            "LAVILAINOISE": 581.4,
+            "BETOTRANS": 617
+          }
+        },
+        {
+          "departement": "46 - Lot ZONE A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 266.25,
+            "GEODIS": 272.33,
+            "BBL": 331.7,
+            "BETOTRANS": 321,
+            "MRCI": 343.44,
+            "SCHENKER": 341.7,
+            "XPO": 361.46,
+            "LAVILAINOISE": 438.6
+          }
+        },
+        {
+          "departement": "46 - Lot ZONE B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 266.25,
+            "GEODIS": 272.33,
+            "BBL": 331.7,
+            "BETOTRANS": 321,
+            "MRCI": 343.44,
+            "SCHENKER": 341.7,
+            "XPO": 361.46,
+            "LAVILAINOISE": 438.6
+          }
+        },
+        {
+          "departement": "47 - Lot et Garonne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 362.39,
+            "BBL": 395.9,
+            "MRCI": 412.34,
+            "BETOTRANS": 398,
+            "KUEHNE": 426,
+            "SCHENKER": 426.36,
+            "XPO": 443.08,
+            "LAVILAINOISE": 561
+          }
+        },
+        {
+          "departement": "48 - Lozère",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 426,
+            "GEODIS": 495.84,
+            "BETOTRANS": 462,
+            "LAVILAINOISE": 479.4,
+            "SCHENKER": 487.56,
+            "BBL": 529.65,
+            "XPO": 542.72,
+            "MRCI": 550.14
+          }
+        },
+        {
+          "departement": "49 - Maine et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "MRCI": 526.82,
+            "KUEHNE": 543.15,
+            "XPO": 554.38,
+            "BBL": 588.5,
+            "LAVILAINOISE": 561,
+            "SCHENKER": 562.02,
+            "GEODIS": 608.68,
+            "BETOTRANS": 614
+          }
+        },
+        {
+          "departement": "50 - Manche",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 852,
+            "GEODIS": 917.91,
+            "XPO": 897.82,
+            "BBL": 984.4,
+            "SCHENKER": 938.4,
+            "MRCI": 1052.58,
+            "LAVILAINOISE": 1050.6,
+            "BETOTRANS": 1064
+          }
+        },
+        {
+          "departement": "51 - Marne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 792.54,
+            "XPO": 827.86,
+            "BBL": 856,
+            "KUEHNE": 852,
+            "MRCI": 893.58,
+            "LAVILAINOISE": 867,
+            "GEODIS": 959.14,
+            "BETOTRANS": 1105
+          }
+        },
+        {
+          "departement": "52 - Haute Marne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 731.34,
+            "BBL": 791.8,
+            "LAVILAINOISE": 765,
+            "XPO": 799.24,
+            "MRCI": 823.62,
+            "GEODIS": 845.21,
+            "KUEHNE": 830.7,
+            "BETOTRANS": 967
+          }
+        },
+        {
+          "departement": "53 - Mayenne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 641.3,
+            "GEODIS": 712.85,
+            "SCHENKER": 670.14,
+            "BBL": 716.9,
+            "KUEHNE": 713.55,
+            "MRCI": 755.78,
+            "BETOTRANS": 767,
+            "LAVILAINOISE": 816
+          }
+        },
+        {
+          "departement": "54 - Meurthe et Moselle",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 792.54,
+            "XPO": 862.84,
+            "BBL": 898.8,
+            "KUEHNE": 937.2,
+            "MRCI": 938.1,
+            "LAVILAINOISE": 918,
+            "GEODIS": 1002.54,
+            "BETOTRANS": 1142
+          }
+        },
+        {
+          "departement": "55 - Meuse",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 792.54,
+            "BBL": 898.8,
+            "KUEHNE": 894.6,
+            "XPO": 919.02,
+            "MRCI": 938.1,
+            "LAVILAINOISE": 918,
+            "GEODIS": 1024.24,
+            "BETOTRANS": 1117
+          }
+        },
+        {
+          "departement": "56 - Morbihan",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 768.18,
+            "XPO": 757.9,
+            "BBL": 786.45,
+            "KUEHNE": 809.4,
+            "SCHENKER": 780.3,
+            "MRCI": 823.62,
+            "LAVILAINOISE": 918,
+            "BETOTRANS": 971
+          }
+        },
+        {
+          "departement": "57 - Moselle",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 874.5,
+            "SCHENKER": 853.74,
+            "KUEHNE": 915.9,
+            "BBL": 963,
+            "GEODIS": 1074.15,
+            "MRCI": 1052.58,
+            "LAVILAINOISE": 1040.4,
+            "BETOTRANS": 1234
+          }
+        },
+        {
+          "departement": "58 - Nièvre",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 493.68,
+            "MRCI": 492.9,
+            "SCHENKER": 487.56,
+            "BBL": 513.6,
+            "XPO": 524.7,
+            "KUEHNE": 530.37,
+            "BETOTRANS": 566,
+            "LAVILAINOISE": 892.5
+          }
+        },
+        {
+          "departement": "59 - Nord",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 883.95,
+            "BBL": 909.5,
+            "SCHENKER": 890.46,
+            "MRCI": 962.48,
+            "XPO": 979.44,
+            "GEODIS": 1018.81,
+            "LAVILAINOISE": 1071,
+            "BETOTRANS": 1326
+          }
+        },
+        {
+          "departement": "60 - Oise",
+          "prix_par_transporteur": {
+            "KUEHNE": 692.25,
+            "BBL": 743.65,
+            "XPO": 787.58,
+            "MRCI": 790.76,
+            "GEODIS": 825.68,
+            "SCHENKER": 792.54,
+            "LACHAUD24": 869,
+            "LAVILAINOISE": 816,
+            "BETOTRANS": 966
+          }
+        },
+        {
+          "departement": "61 - Orne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 665.11,
+            "BBL": 674.1,
+            "XPO": 676.28,
+            "KUEHNE": 713.55,
+            "MRCI": 721.86,
+            "SCHENKER": 706.86,
+            "LAVILAINOISE": 805.8,
+            "BETOTRANS": 845
+          }
+        },
+        {
+          "departement": "62 - Pas de Calais",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 883.95,
+            "BBL": 909.5,
+            "SCHENKER": 913.92,
+            "MRCI": 962.48,
+            "XPO": 991.1,
+            "GEODIS": 1018.81,
+            "LAVILAINOISE": 969,
+            "BETOTRANS": 1323
+          }
+        },
+        {
+          "departement": "63 - Puy de Dome",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 272.33,
+            "KUEHNE": 340.8,
+            "LAVILAINOISE": 326.4,
+            "SCHENKER": 366.18,
+            "BBL": 395.9,
+            "BETOTRANS": 371,
+            "MRCI": 400.68,
+            "XPO": 408.1
+          }
+        },
+        {
+          "departement": "64 - Pyrénéés Atlantique",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 532.5,
+            "XPO": 571.34,
+            "GEODIS": 588.07,
+            "BBL": 593.85,
+            "SCHENKER": 597.72,
+            "MRCI": 629.64,
+            "BETOTRANS": 685,
+            "LAVILAINOISE": 867
+          }
+        },
+        {
+          "departement": "65 - Hautes Pyrénées",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 559.68,
+            "KUEHNE": 564.45,
+            "GEODIS": 588.07,
+            "BBL": 620.6,
+            "MRCI": 629.64,
+            "SCHENKER": 609.96,
+            "BETOTRANS": 656,
+            "LAVILAINOISE": 867
+          }
+        },
+        {
+          "departement": "66 - Pyrénées Orientales",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 588.07,
+            "BBL": 693.36,
+            "KUEHNE": 692.25,
+            "SCHENKER": 670.14,
+            "XPO": 699.6,
+            "MRCI": 721.86,
+            "BETOTRANS": 751,
+            "LAVILAINOISE": 907.8
+          }
+        },
+        {
+          "departement": "67 - Bas Rhin",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 947.85,
+            "SCHENKER": 913.92,
+            "XPO": 991.1,
+            "BBL": 1005.8,
+            "MRCI": 1052.58,
+            "GEODIS": 1130.57,
+            "LAVILAINOISE": 1071,
+            "BETOTRANS": 1321
+          }
+        },
+        {
+          "departement": "68 - Haut Rhin",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 839.52,
+            "SCHENKER": 817.02,
+            "BBL": 861.35,
+            "MRCI": 893.58,
+            "KUEHNE": 926.55,
+            "GEODIS": 1023.15,
+            "LAVILAINOISE": 969,
+            "BETOTRANS": 1112
+          }
+        },
+        {
+          "departement": "69 - Rhône",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 408,
+            "SCHENKER": 499.8,
+            "MRCI": 532.12,
+            "GEODIS": 552.26,
+            "BBL": 545.7,
+            "KUEHNE": 548.48,
+            "XPO": 569.22,
+            "BETOTRANS": 649
+          }
+        },
+        {
+          "departement": "70 - Haute Saône",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 722.92,
+            "SCHENKER": 731.34,
+            "BBL": 786.45,
+            "KUEHNE": 820.05,
+            "GEODIS": 840.88,
+            "MRCI": 823.62,
+            "LAVILAINOISE": 836.4,
+            "BETOTRANS": 937
+          }
+        },
+        {
+          "departement": "71 - Saône et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 448.8,
+            "SCHENKER": 463.08,
+            "XPO": 571.34,
+            "GEODIS": 588.07,
+            "MRCI": 624.34,
+            "BBL": 631.3,
+            "KUEHNE": 649.65,
+            "BETOTRANS": 672
+          }
+        },
+        {
+          "departement": "72 - Sarthe",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 583,
+            "BBL": 604.55,
+            "SCHENKER": 609.96,
+            "MRCI": 634.94,
+            "KUEHNE": 660.3,
+            "GEODIS": 712.85,
+            "LAVILAINOISE": 693.6,
+            "BETOTRANS": 736
+          }
+        },
+        {
+          "departement": "73 - Savoie",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 692.25,
+            "LAVILAINOISE": 663,
+            "GEODIS": 712.85,
+            "SCHENKER": 670.14,
+            "XPO": 722.92,
+            "BBL": 749,
+            "MRCI": 893.58,
+            "BETOTRANS": 925
+          }
+        },
+        {
+          "departement": "74 - Haute Savoie",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 712.85,
+            "SCHENKER": 670.14,
+            "XPO": 734.58,
+            "BBL": 749,
+            "KUEHNE": 766.8,
+            "MRCI": 823.62,
+            "BETOTRANS": 865,
+            "LAVILAINOISE": 907.8
+          }
+        },
+        {
+          "departement": "75 - Ile de France",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "MRCI": 686.88,
+            "LAVILAINOISE": 663,
+            "SCHENKER": 670.54,
+            "GEODIS": 716.1,
+            "XPO": 722.92,
+            "BETOTRANS": 826
+          }
+        },
+        {
+          "departement": "76 - Seine Maritime",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "BBL": 791.8,
+            "MRCI": 823.62,
+            "KUEHNE": 830.7,
+            "SCHENKER": 817.02,
+            "XPO": 851.18,
+            "GEODIS": 903.8,
+            "LAVILAINOISE": 897.6,
+            "BETOTRANS": 1013
+          }
+        },
+        {
+          "departement": "77 - Seine et Marne",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "MRCI": 686.88,
+            "LAVILAINOISE": 663,
+            "SCHENKER": 670.14,
+            "GEODIS": 716.1,
+            "XPO": 722.92,
+            "BETOTRANS": 860
+          }
+        },
+        {
+          "departement": "78 - Yvelines",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "MRCI": 686.88,
+            "SCHENKER": 670.14,
+            "GEODIS": 716.1,
+            "LAVILAINOISE": 693.6,
+            "XPO": 722.92,
+            "BETOTRANS": 876
+          }
+        },
+        {
+          "departement": "79 - Deux Sèvres",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "MRCI": 412.34,
+            "BBL": 438.7,
+            "GEODIS": 488.25,
+            "KUEHNE": 479.25,
+            "LAVILAINOISE": 459,
+            "XPO": 489.72,
+            "SCHENKER": 487.56,
+            "BETOTRANS": 494
+          }
+        },
+        {
+          "departement": "80 - Somme",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 798.75,
+            "BBL": 829.25,
+            "MRCI": 823.62,
+            "SCHENKER": 792.54,
+            "XPO": 839.52,
+            "GEODIS": 903.8,
+            "LAVILAINOISE": 856.8,
+            "BETOTRANS": 1066
+          }
+        },
+        {
+          "departement": "81 - Tarn",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 319.5,
+            "BBL": 406.6,
+            "GEODIS": 413.38,
+            "MRCI": 412.34,
+            "SCHENKER": 463.08,
+            "XPO": 501.38,
+            "BETOTRANS": 488,
+            "LAVILAINOISE": 540.6
+          }
+        },
+        {
+          "departement": "82 - Tarn et Garonne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 319.5,
+            "SCHENKER": 348.84,
+            "BBL": 379.85,
+            "GEODIS": 397.11,
+            "BETOTRANS": 387,
+            "MRCI": 412.34,
+            "LAVILAINOISE": 418.2,
+            "XPO": 443.08
+          }
+        },
+        {
+          "departement": "83 - Var",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 874.5,
+            "BBL": 898.8,
+            "KUEHNE": 926.55,
+            "GEODIS": 969.99,
+            "SCHENKER": 913.92,
+            "MRCI": 962.48,
+            "BETOTRANS": 1003,
+            "LAVILAINOISE": 1173
+          }
+        },
+        {
+          "departement": "84 - Vaucluse",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "XPO": 676.28,
+            "SCHENKER": 706.86,
+            "BBL": 749,
+            "KUEHNE": 750.82,
+            "MRCI": 755.78,
+            "LAVILAINOISE": 749.7,
+            "GEODIS": 825.68,
+            "BETOTRANS": 777
+          }
+        },
+        {
+          "departement": "85 - Vendée",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 553.8,
+            "XPO": 583,
+            "BBL": 599.2,
+            "MRCI": 594.66,
+            "LAVILAINOISE": 581.4,
+            "SCHENKER": 597.72,
+            "BETOTRANS": 624,
+            "GEODIS": 695.49
+          }
+        },
+        {
+          "departement": "86 - Vienne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 413.38,
+            "MRCI": 412.34,
+            "BBL": 417.3,
+            "SCHENKER": 401.88,
+            "XPO": 419.76,
+            "KUEHNE": 426,
+            "LAVILAINOISE": 428.4,
+            "BETOTRANS": 443
+          }
+        },
+        {
+          "departement": "87 - Haute Vienne Zone A",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 272.33,
+            "KUEHNE": 308.85,
+            "LAVILAINOISE": 306,
+            "BETOTRANS": 315,
+            "BBL": 342.4,
+            "SCHENKER": 341.7,
+            "XPO": 396.44,
+            "MRCI": 412.34
+          }
+        },
+        {
+          "departement": "87 - Haute Vienne Zone B",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "GEODIS": 272.33,
+            "KUEHNE": 308.85,
+            "LAVILAINOISE": 306,
+            "BETOTRANS": 315,
+            "BBL": 342.4,
+            "SCHENKER": 341.7,
+            "XPO": 396.44,
+            "MRCI": 412.34
+          }
+        },
+        {
+          "departement": "88 - Vosges",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "SCHENKER": 792.54,
+            "XPO": 839.52,
+            "KUEHNE": 883.95,
+            "BBL": 898.8,
+            "MRCI": 938.1,
+            "GEODIS": 968.9,
+            "LAVILAINOISE": 1122,
+            "BETOTRANS": 1137
+          }
+        },
+        {
+          "departement": "89 - Yonne",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 585.75,
+            "GEODIS": 604.35,
+            "SCHENKER": 597.72,
+            "LAVILAINOISE": 601.8,
+            "XPO": 629.64,
+            "BBL": 682.66,
+            "MRCI": 721.86,
+            "BETOTRANS": 743
+          }
+        },
+        {
+          "departement": "90 - Teritoire de Belfort",
+          "prix_par_transporteur": {
+            "LACHAUD24": 0,
+            "KUEHNE": 809.4,
+            "XPO": 816.2,
+            "SCHENKER": 792.54,
+            "GEODIS": 909.23,
+            "BBL": 909.5,
+            "MRCI": 962.48,
+            "BETOTRANS": 974,
+            "LAVILAINOISE": 1142.4
+          }
+        },
+        {
+          "departement": "91 - Essonne",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "LAVILAINOISE": 652.8,
+            "MRCI": 686.88,
+            "GEODIS": 716.1,
+            "SCHENKER": 682.38,
+            "XPO": 722.92,
+            "BETOTRANS": 785
+          }
+        },
+        {
+          "departement": "92 - Hauts de Seine",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "LAVILAINOISE": 652.8,
+            "MRCI": 686.88,
+            "GEODIS": 716.1,
+            "SCHENKER": 682.38,
+            "XPO": 722.92,
+            "BETOTRANS": 833
+          }
+        },
+        {
+          "departement": "93 - Seine St Denis",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "MRCI": 686.88,
+            "GEODIS": 716.1,
+            "LAVILAINOISE": 678.3,
+            "SCHENKER": 682.38,
+            "XPO": 722.92,
+            "BETOTRANS": 864
+          }
+        },
+        {
+          "departement": "94 - Val de Marne",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "LAVILAINOISE": 652.8,
+            "MRCI": 686.88,
+            "GEODIS": 716.1,
+            "SCHENKER": 682.38,
+            "XPO": 722.92,
+            "BETOTRANS": 826
+          }
+        },
+        {
+          "departement": "95 - Val d'Oise",
+          "prix_par_transporteur": {
+            "BBL": 652.7,
+            "KUEHNE": 649.65,
+            "LACHAUD24": 676.5,
+            "MRCI": 686.88,
+            "GEODIS": 716.1,
+            "SCHENKER": 682.38,
+            "LAVILAINOISE": 714,
+            "XPO": 757.9,
+            "BETOTRANS": 869
+          }
+        },
+        {
+          "departement": "BFA",
+          "prix_par_transporteur": {
+            "BBL": 0,
+            "BETOTRANS": 0,
+            "GEODIS": 0,
+            "KUEHNE": 0,
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 0,
+            "MRCI": 0,
+            "SCHENKER": 0,
+            "XPO": 0
+          }
+        },
+        {
+          "departement": "Complément",
+          "prix_par_transporteur": {
+            "BBL": 0,
+            "BETOTRANS": 0,
+            "GEODIS": 0,
+            "LACHAUD24": 0,
+            "LAVILAINOISE": 0,
+            "SCHENKER": 0,
+            "KUEHNE": 53.25,
+            "MRCI": 53,
+            "XPO": 53
+          }
+        }
+      ]
+    },
+    {
+      "nom": "Général - plateau",
+      "type": "Plateau",
+      "info": "Hors taxe Gazole",
+      "pays": "France",
+      "transporteurs": [
+        "BETOTRANS",
+        "CONTE",
+        "LACHAUD",
+        "MRCI",
+        "SCHENKER",
+        "VEYSSET",
+        "XPO"
+      ],
+      "nombre_departements": 103,
+      "tarifs": [
+        {
+          "departement": "1 - Ain",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 574,
+            "MRCI": 635,
+            "XPO": 666,
+            "VEYSSET": 670,
+            "BETOTRANS": 707,
+            "CONTE": 719
+          }
+        },
+        {
+          "departement": "2 - Aisne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 752,
+            "SCHENKER": 813,
+            "XPO": 841,
+            "VEYSSET": 880,
+            "CONTE": 1026,
+            "BETOTRANS": 1080
+          }
+        },
+        {
+          "departement": "3 - Allier",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 365,
+            "SCHENKER": 418,
+            "VEYSSET": 450,
+            "XPO": 466,
+            "CONTE": 480,
+            "BETOTRANS": 492
+          }
+        },
+        {
+          "departement": "4 - Alpes Haute Provence",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 896,
+            "XPO": 908,
+            "MRCI": 974,
+            "BETOTRANS": 1047,
+            "CONTE": 1075,
+            "VEYSSET": 1240
+          }
+        },
+        {
+          "departement": "5 - Hautes Alpes",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 896,
+            "XPO": 901,
+            "MRCI": 974,
+            "CONTE": 1005,
+            "BETOTRANS": 1022,
+            "VEYSSET": 1180
+          }
+        },
+        {
+          "departement": "6 - Alpes Maritime",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 1016,
+            "XPO": 1029,
+            "MRCI": 1080,
+            "VEYSSET": 1130,
+            "BETOTRANS": 1165,
+            "CONTE": 1194
+          }
+        },
+        {
+          "departement": "7 - Ardèche",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 538,
+            "BETOTRANS": 589,
+            "XPO": 595,
+            "MRCI": 622,
+            "CONTE": 756,
+            "VEYSSET": 840
+          }
+        },
+        {
+          "departement": "8 - Ardennes",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 896,
+            "MRCI": 908,
+            "XPO": 944,
+            "VEYSSET": 1080,
+            "BETOTRANS": 1207,
+            "CONTE": 1221
+          }
+        },
+        {
+          "departement": "9 - Ariège",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 514,
+            "MRCI": 519,
+            "BETOTRANS": 536,
+            "XPO": 545,
+            "CONTE": 584,
+            "VEYSSET": 600
+          }
+        },
+        {
+          "departement": "10 - Aube",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 681,
+            "SCHENKER": 681,
+            "XPO": 720,
+            "VEYSSET": 880,
+            "BETOTRANS": 962,
+            "CONTE": 1005
+          }
+        },
+        {
+          "departement": "11 - Aude ",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 478,
+            "XPO": 478,
+            "MRCI": 491,
+            "VEYSSET": 550,
+            "CONTE": 605,
+            "BETOTRANS": 622
+          }
+        },
+        {
+          "departement": "12 - Aveyron ZONE A",
+          "prix_par_transporteur": {
+            "MRCI": 389,
+            "LACHAUD": 400,
+            "SCHENKER": 418,
+            "BETOTRANS": 471,
+            "XPO": 484,
+            "CONTE": 500,
+            "VEYSSET": 580
+          }
+        },
+        {
+          "departement": "12 - Aveyron ZONE B",
+          "prix_par_transporteur": {
+            "MRCI": 389,
+            "LACHAUD": 400,
+            "SCHENKER": 418,
+            "BETOTRANS": 471,
+            "XPO": 484,
+            "VEYSSET": 580,
+            "CONTE": 610
+          }
+        },
+        {
+          "departement": "13 - Bouches du Rhone",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 777,
+            "SCHENKER": 825,
+            "XPO": 847,
+            "BETOTRANS": 896,
+            "VEYSSET": 930,
+            "CONTE": 994
+          }
+        },
+        {
+          "departement": "14 - Calvados",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 777,
+            "SCHENKER": 777,
+            "XPO": 787,
+            "VEYSSET": 880,
+            "BETOTRANS": 981,
+            "CONTE": 1016
+          }
+        },
+        {
+          "departement": "15 - Cantal ZONE A",
+          "prix_par_transporteur": {
+            "CONTE": 275,
+            "SCHENKER": 299,
+            "BETOTRANS": 315,
+            "MRCI": 345,
+            "VEYSSET": 350,
+            "LACHAUD": 400,
+            "XPO": 424
+          }
+        },
+        {
+          "departement": "15 - Cantal ZONE B",
+          "prix_par_transporteur": {
+            "SCHENKER": 299,
+            "BETOTRANS": 315,
+            "MRCI": 345,
+            "LACHAUD": 400,
+            "VEYSSET": 400,
+            "XPO": 424,
+            "CONTE": 465
+          }
+        },
+        {
+          "departement": "16 - Charente",
+          "prix_par_transporteur": {
+            "SCHENKER": 342,
+            "MRCI": 378,
+            "VEYSSET": 390,
+            "BETOTRANS": 414,
+            "XPO": 424,
+            "LACHAUD": 425,
+            "CONTE": 440
+          }
+        },
+        {
+          "departement": "17 - Charente Maritime",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 465,
+            "CONTE": 500,
+            "VEYSSET": 520,
+            "SCHENKER": 526,
+            "XPO": 545,
+            "BETOTRANS": 596
+          }
+        },
+        {
+          "departement": "18 - Cher",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 454,
+            "MRCI": 465,
+            "XPO": 496,
+            "BETOTRANS": 525,
+            "CONTE": 525,
+            "VEYSSET": 540
+          }
+        },
+        {
+          "departement": "19 - Correze ZONE A",
+          "prix_par_transporteur": {
+            "CONTE": 200,
+            "BETOTRANS": 204,
+            "MRCI": 259,
+            "VEYSSET": 260,
+            "SCHENKER": 275,
+            "LACHAUD": 278,
+            "XPO": 363
+          }
+        },
+        {
+          "departement": "19 - Corrèze ZONE B",
+          "prix_par_transporteur": {
+            "BETOTRANS": 204,
+            "MRCI": 259,
+            "SCHENKER": 275,
+            "LACHAUD": 278,
+            "CONTE": 305,
+            "VEYSSET": 360,
+            "XPO": 363
+          }
+        },
+        {
+          "departement": "21 : Côte d'Or",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 622,
+            "XPO": 702,
+            "MRCI": 746,
+            "VEYSSET": 770,
+            "BETOTRANS": 792,
+            "CONTE": 843
+          }
+        },
+        {
+          "departement": "22 - Côtes d'Armor",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 884,
+            "XPO": 895,
+            "VEYSSET": 980,
+            "MRCI": 1005,
+            "BETOTRANS": 1013,
+            "CONTE": 1043
+          }
+        },
+        {
+          "departement": "23 - Creuse",
+          "prix_par_transporteur": {
+            "SCHENKER": 335,
+            "MRCI": 357,
+            "BETOTRANS": 393,
+            "LACHAUD": 400,
+            "CONTE": 410,
+            "VEYSSET": 410,
+            "XPO": 469
+          }
+        },
+        {
+          "departement": "24 - Dordogne ZONE A",
+          "prix_par_transporteur": {
+            "MRCI": 259,
+            "LACHAUD": 278,
+            "VEYSSET": 320,
+            "BETOTRANS": 322,
+            "SCHENKER": 329,
+            "CONTE": 330,
+            "XPO": 363
+          }
+        },
+        {
+          "departement": "24 - Dordogne ZONE B",
+          "prix_par_transporteur": {
+            "MRCI": 259,
+            "LACHAUD": 278,
+            "BETOTRANS": 322,
+            "SCHENKER": 329,
+            "XPO": 363,
+            "VEYSSET": 370,
+            "CONTE": 385
+          }
+        },
+        {
+          "departement": "25 - Doubs",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 693,
+            "MRCI": 697,
+            "XPO": 762,
+            "VEYSSET": 820,
+            "BETOTRANS": 898,
+            "CONTE": 972
+          }
+        },
+        {
+          "departement": "26 - Drôme",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 562,
+            "XPO": 605,
+            "MRCI": 627,
+            "VEYSSET": 840,
+            "CONTE": 864,
+            "BETOTRANS": 925
+          }
+        },
+        {
+          "departement": "27 - Eure",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 681,
+            "XPO": 750,
+            "MRCI": 777,
+            "BETOTRANS": 884,
+            "VEYSSET": 930,
+            "CONTE": 1005
+          }
+        },
+        {
+          "departement": "28 - Eure et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 594,
+            "SCHENKER": 657,
+            "XPO": 666,
+            "VEYSSET": 670,
+            "BETOTRANS": 743,
+            "CONTE": 762
+          }
+        },
+        {
+          "departement": "29 - Finistère",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 926,
+            "XPO": 938,
+            "MRCI": 1005,
+            "VEYSSET": 1010,
+            "BETOTRANS": 1076,
+            "CONTE": 1180
+          }
+        },
+        {
+          "departement": "30 - Gard",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "XPO": 641,
+            "MRCI": 648,
+            "SCHENKER": 657,
+            "BETOTRANS": 699,
+            "VEYSSET": 820,
+            "CONTE": 870
+          }
+        },
+        {
+          "departement": "31 - Haute Garonne",
+          "prix_par_transporteur": {
+            "LACHAUD": 341,
+            "MRCI": 383,
+            "SCHENKER": 386,
+            "VEYSSET": 390,
+            "CONTE": 430,
+            "BETOTRANS": 475,
+            "XPO": 545
+          }
+        },
+        {
+          "departement": "32 - Gers",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 453,
+            "VEYSSET": 490,
+            "CONTE": 510,
+            "SCHENKER": 526,
+            "XPO": 563,
+            "BETOTRANS": 568
+          }
+        },
+        {
+          "departement": "33 - Gironde ZONE A",
+          "prix_par_transporteur": {
+            "MRCI": 378,
+            "SCHENKER": 386,
+            "VEYSSET": 390,
+            "CONTE": 400,
+            "LACHAUD": 400,
+            "XPO": 424,
+            "BETOTRANS": 428
+          }
+        },
+        {
+          "departement": "33 - Gironde ZONE B",
+          "prix_par_transporteur": {
+            "MRCI": 378,
+            "SCHENKER": 386,
+            "VEYSSET": 390,
+            "LACHAUD": 400,
+            "XPO": 424,
+            "BETOTRANS": 428,
+            "CONTE": 500
+          }
+        },
+        {
+          "departement": "34 - Hérault",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 594,
+            "BETOTRANS": 607,
+            "SCHENKER": 633,
+            "XPO": 641,
+            "CONTE": 710,
+            "VEYSSET": 720
+          }
+        },
+        {
+          "departement": "35 - Ille et VIlaine",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 657,
+            "XPO": 702,
+            "MRCI": 713,
+            "VEYSSET": 820,
+            "BETOTRANS": 843,
+            "CONTE": 910
+          }
+        },
+        {
+          "departement": "36 - Indre",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 386,
+            "MRCI": 389,
+            "BETOTRANS": 443,
+            "VEYSSET": 460,
+            "CONTE": 520,
+            "XPO": 545
+          }
+        },
+        {
+          "departement": "37 - Indre et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 497,
+            "SCHENKER": 514,
+            "XPO": 538,
+            "BETOTRANS": 569,
+            "VEYSSET": 570,
+            "CONTE": 605
+          }
+        },
+        {
+          "departement": "38 - Isère",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 574,
+            "XPO": 641,
+            "MRCI": 713,
+            "VEYSSET": 760,
+            "CONTE": 794,
+            "BETOTRANS": 813
+          }
+        },
+        {
+          "departement": "39 - Jura",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 598,
+            "XPO": 666,
+            "MRCI": 713,
+            "VEYSSET": 800,
+            "BETOTRANS": 842,
+            "CONTE": 864
+          }
+        },
+        {
+          "departement": "40 - Landes",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "XPO": 495,
+            "MRCI": 519,
+            "SCHENKER": 538,
+            "VEYSSET": 540,
+            "CONTE": 595,
+            "BETOTRANS": 639
+          }
+        },
+        {
+          "departement": "41 - Loir et Cher",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 497,
+            "SCHENKER": 514,
+            "XPO": 532,
+            "BETOTRANS": 570,
+            "CONTE": 600,
+            "VEYSSET": 620
+          }
+        },
+        {
+          "departement": "42 - Loire",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 465,
+            "SCHENKER": 478,
+            "BETOTRANS": 516,
+            "XPO": 575,
+            "VEYSSET": 580,
+            "CONTE": 648
+          }
+        },
+        {
+          "departement": "43 - Haute Loire",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 465,
+            "SCHENKER": 478,
+            "BETOTRANS": 479,
+            "XPO": 545,
+            "CONTE": 575,
+            "VEYSSET": 580
+          }
+        },
+        {
+          "departement": "44 - Loire Atlantique",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 605,
+            "SCHENKER": 645,
+            "XPO": 666,
+            "VEYSSET": 670,
+            "CONTE": 715,
+            "BETOTRANS": 717
+          }
+        },
+        {
+          "departement": "45 - Loiret",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 497,
+            "SCHENKER": 526,
+            "XPO": 575,
+            "VEYSSET": 600,
+            "BETOTRANS": 617,
+            "CONTE": 715
+          }
+        },
+        {
+          "departement": "46 - Lot ZONE A",
+          "prix_par_transporteur": {
+            "CONTE": 285,
+            "VEYSSET": 300,
+            "BETOTRANS": 321,
+            "MRCI": 324,
+            "SCHENKER": 335,
+            "LACHAUD": 362,
+            "XPO": 375
+          }
+        },
+        {
+          "departement": "46 - Lot ZONE B",
+          "prix_par_transporteur": {
+            "BETOTRANS": 321,
+            "MRCI": 324,
+            "CONTE": 330,
+            "SCHENKER": 335,
+            "VEYSSET": 360,
+            "LACHAUD": 362,
+            "XPO": 375
+          }
+        },
+        {
+          "departement": "47 - Lot et Garonne",
+          "prix_par_transporteur": {
+            "LACHAUD": 360,
+            "MRCI": 389,
+            "BETOTRANS": 398,
+            "SCHENKER": 418,
+            "VEYSSET": 430,
+            "CONTE": 440,
+            "XPO": 460
+          }
+        },
+        {
+          "departement": "48 - Lozère",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "BETOTRANS": 462,
+            "SCHENKER": 478,
+            "MRCI": 519,
+            "XPO": 563,
+            "CONTE": 610,
+            "VEYSSET": 630
+          }
+        },
+        {
+          "departement": "49 - Maine et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 497,
+            "SCHENKER": 551,
+            "XPO": 575,
+            "BETOTRANS": 614,
+            "VEYSSET": 620,
+            "CONTE": 650
+          }
+        },
+        {
+          "departement": "50 - Manche",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 920,
+            "XPO": 932,
+            "MRCI": 993,
+            "VEYSSET": 1030,
+            "BETOTRANS": 1064,
+            "CONTE": 1134
+          }
+        },
+        {
+          "departement": "51 - Marne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 777,
+            "MRCI": 843,
+            "XPO": 859,
+            "VEYSSET": 880,
+            "CONTE": 1037,
+            "BETOTRANS": 1105
+          }
+        },
+        {
+          "departement": "52 - Haute Marne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 717,
+            "MRCI": 777,
+            "XPO": 829,
+            "VEYSSET": 910,
+            "BETOTRANS": 967,
+            "CONTE": 983
+          }
+        },
+        {
+          "departement": "53 - Mayenne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 657,
+            "XPO": 666,
+            "MRCI": 713,
+            "VEYSSET": 750,
+            "BETOTRANS": 767,
+            "CONTE": 800
+          }
+        },
+        {
+          "departement": "54 - Meurthe et Moselle",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 777,
+            "MRCI": 885,
+            "XPO": 895,
+            "VEYSSET": 910,
+            "BETOTRANS": 1142,
+            "CONTE": 1221
+          }
+        },
+        {
+          "departement": "55 - Meuse",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 777,
+            "MRCI": 885,
+            "XPO": 953,
+            "VEYSSET": 960,
+            "BETOTRANS": 1117,
+            "CONTE": 1242
+          }
+        },
+        {
+          "departement": "56 - Morbihan",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 765,
+            "MRCI": 777,
+            "XPO": 787,
+            "VEYSSET": 920,
+            "CONTE": 960,
+            "BETOTRANS": 971
+          }
+        },
+        {
+          "departement": "57 - Moselle",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 837,
+            "XPO": 908,
+            "VEYSSET": 980,
+            "MRCI": 993,
+            "BETOTRANS": 1234,
+            "CONTE": 1286
+          }
+        },
+        {
+          "departement": "58 - Nièvre",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 465,
+            "SCHENKER": 478,
+            "XPO": 545,
+            "BETOTRANS": 566,
+            "VEYSSET": 620,
+            "CONTE": 630
+          }
+        },
+        {
+          "departement": "59 - Nord",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 873,
+            "MRCI": 908,
+            "VEYSSET": 980,
+            "XPO": 1016,
+            "CONTE": 1240,
+            "BETOTRANS": 1326
+          }
+        },
+        {
+          "departement": "60 - Oise",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 746,
+            "VEYSSET": 770,
+            "SCHENKER": 777,
+            "XPO": 817,
+            "BETOTRANS": 966,
+            "CONTE": 1026
+          }
+        },
+        {
+          "departement": "61 - Orne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 681,
+            "SCHENKER": 693,
+            "XPO": 702,
+            "VEYSSET": 810,
+            "BETOTRANS": 845,
+            "CONTE": 908
+          }
+        },
+        {
+          "departement": "62 - Pas de Calais",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 896,
+            "MRCI": 908,
+            "VEYSSET": 980,
+            "XPO": 1029,
+            "CONTE": 1240,
+            "BETOTRANS": 1323
+          }
+        },
+        {
+          "departement": "63 - Puy de Dome",
+          "prix_par_transporteur": {
+            "SCHENKER": 359,
+            "BETOTRANS": 371,
+            "MRCI": 378,
+            "VEYSSET": 390,
+            "LACHAUD": 400,
+            "XPO": 424,
+            "CONTE": 425
+          }
+        },
+        {
+          "departement": "64 - Pyrénéés Atlantique",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "XPO": 424,
+            "SCHENKER": 586,
+            "MRCI": 594,
+            "VEYSSET": 620,
+            "CONTE": 681,
+            "BETOTRANS": 685
+          }
+        },
+        {
+          "departement": "65 - Hautes Pyrénées",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "XPO": 581,
+            "MRCI": 594,
+            "SCHENKER": 598,
+            "CONTE": 616,
+            "VEYSSET": 620,
+            "BETOTRANS": 656
+          }
+        },
+        {
+          "departement": "66 - Pyrénées Orientales",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "VEYSSET": 620,
+            "SCHENKER": 657,
+            "MRCI": 681,
+            "XPO": 726,
+            "CONTE": 740,
+            "BETOTRANS": 751
+          }
+        },
+        {
+          "departement": "67 - Bas Rhin",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 896,
+            "MRCI": 993,
+            "XPO": 1029,
+            "VEYSSET": 1030,
+            "BETOTRANS": 1321,
+            "CONTE": 1340
+          }
+        },
+        {
+          "departement": "68 - Haut Rhin",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 801,
+            "MRCI": 843,
+            "XPO": 871,
+            "VEYSSET": 960,
+            "BETOTRANS": 1112,
+            "CONTE": 1188
+          }
+        },
+        {
+          "departement": "69 - Rhône",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 490,
+            "MRCI": 502,
+            "XPO": 590,
+            "VEYSSET": 620,
+            "BETOTRANS": 649,
+            "CONTE": 665
+          }
+        },
+        {
+          "departement": "70 - Haute Saône",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 717,
+            "XPO": 750,
+            "MRCI": 777,
+            "VEYSSET": 880,
+            "BETOTRANS": 937,
+            "CONTE": 1005
+          }
+        },
+        {
+          "departement": "71 - Saône et Loire",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 454,
+            "MRCI": 589,
+            "XPO": 593,
+            "BETOTRANS": 672,
+            "CONTE": 685,
+            "VEYSSET": 700
+          }
+        },
+        {
+          "departement": "72 - Sarthe",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 598,
+            "MRCI": 599,
+            "XPO": 605,
+            "VEYSSET": 670,
+            "CONTE": 710,
+            "BETOTRANS": 736
+          }
+        },
+        {
+          "departement": "73 - Savoie",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 657,
+            "XPO": 750,
+            "VEYSSET": 770,
+            "MRCI": 843,
+            "CONTE": 897,
+            "BETOTRANS": 925
+          }
+        },
+        {
+          "departement": "74 - Haute Savoie",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 657,
+            "XPO": 762,
+            "MRCI": 777,
+            "VEYSSET": 820,
+            "BETOTRANS": 865,
+            "CONTE": 962
+          }
+        },
+        {
+          "departement": "75 - Ile de France",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 657,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 826,
+            "CONTE": 972
+          }
+        },
+        {
+          "departement": "76 - Seine Maritime",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 777,
+            "SCHENKER": 801,
+            "XPO": 883,
+            "VEYSSET": 910,
+            "BETOTRANS": 1013,
+            "CONTE": 1065
+          }
+        },
+        {
+          "departement": "77 - Seine et Marne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 657,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 860,
+            "CONTE": 929
+          }
+        },
+        {
+          "departement": "78 - Yvelines",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 657,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 876,
+            "CONTE": 951
+          }
+        },
+        {
+          "departement": "79 - Deux Sèvres",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 389,
+            "SCHENKER": 478,
+            "BETOTRANS": 494,
+            "XPO": 508,
+            "CONTE": 545,
+            "VEYSSET": 580
+          }
+        },
+        {
+          "departement": "80 - Somme",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 777,
+            "SCHENKER": 777,
+            "XPO": 871,
+            "VEYSSET": 930,
+            "BETOTRANS": 1066,
+            "CONTE": 1118
+          }
+        },
+        {
+          "departement": "81 - Tarn",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 389,
+            "VEYSSET": 440,
+            "SCHENKER": 454,
+            "BETOTRANS": 488,
+            "CONTE": 520,
+            "XPO": 520
+          }
+        },
+        {
+          "departement": "82 - Tarn et Garonne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 342,
+            "VEYSSET": 360,
+            "BETOTRANS": 387,
+            "MRCI": 389,
+            "CONTE": 411,
+            "XPO": 460
+          }
+        },
+        {
+          "departement": "83 - Var",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 896,
+            "MRCI": 908,
+            "XPO": 908,
+            "BETOTRANS": 1003,
+            "VEYSSET": 1030,
+            "CONTE": 1080
+          }
+        },
+        {
+          "departement": "84 - Vaucluse",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 693,
+            "XPO": 702,
+            "MRCI": 713,
+            "BETOTRANS": 777,
+            "VEYSSET": 880,
+            "CONTE": 930
+          }
+        },
+        {
+          "departement": "85 - Vendée",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 561,
+            "SCHENKER": 586,
+            "XPO": 605,
+            "CONTE": 620,
+            "BETOTRANS": 624,
+            "VEYSSET": 670
+          }
+        },
+        {
+          "departement": "86 - Vienne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 389,
+            "SCHENKER": 394,
+            "XPO": 436,
+            "BETOTRANS": 443,
+            "VEYSSET": 490,
+            "CONTE": 500
+          }
+        },
+        {
+          "departement": "87 - Haute Vienne Zone A",
+          "prix_par_transporteur": {
+            "BETOTRANS": 315,
+            "LACHAUD": 330,
+            "VEYSSET": 330,
+            "CONTE": 335,
+            "SCHENKER": 335,
+            "MRCI": 389,
+            "XPO": 411
+          }
+        },
+        {
+          "departement": "87 - Haute Vienne Zone B",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "BETOTRANS": 315,
+            "CONTE": 335,
+            "SCHENKER": 335,
+            "VEYSSET": 380,
+            "MRCI": 389,
+            "XPO": 411
+          }
+        },
+        {
+          "departement": "88 - Vosges",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 777,
+            "XPO": 871,
+            "MRCI": 885,
+            "VEYSSET": 980,
+            "CONTE": 1134,
+            "BETOTRANS": 1137
+          }
+        },
+        {
+          "departement": "89 - Yonne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 586,
+            "XPO": 653,
+            "MRCI": 681,
+            "BETOTRANS": 743,
+            "CONTE": 780,
+            "VEYSSET": 820
+          }
+        },
+        {
+          "departement": "90 - Teritoire de Belfort",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "SCHENKER": 777,
+            "XPO": 847,
+            "MRCI": 908,
+            "VEYSSET": 910,
+            "BETOTRANS": 974,
+            "CONTE": 1048
+          }
+        },
+        {
+          "departement": "91 - Essonne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 669,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 758,
+            "CONTE": 810
+          }
+        },
+        {
+          "departement": "92 - Hauts de Seine",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 669,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 833,
+            "CONTE": 870
+          }
+        },
+        {
+          "departement": "93 - Seine St Denis",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 669,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 864,
+            "CONTE": 870
+          }
+        },
+        {
+          "departement": "94 - Val de Marne",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 669,
+            "VEYSSET": 720,
+            "XPO": 750,
+            "BETOTRANS": 826,
+            "CONTE": 870
+          }
+        },
+        {
+          "departement": "95 - Val d'Oise",
+          "prix_par_transporteur": {
+            "LACHAUD": 0,
+            "MRCI": 648,
+            "SCHENKER": 669,
+            "VEYSSET": 720,
+            "XPO": 787,
+            "BETOTRANS": 869,
+            "CONTE": 910
+          }
+        },
+        {
+          "departement": "BFA",
+          "prix_par_transporteur": {
+            "BETOTRANS": 0,
+            "CONTE": 0,
+            "LACHAUD": 0,
+            "MRCI": 0,
+            "SCHENKER": 0,
+            "VEYSSET": 0,
+            "XPO": 0
+          }
+        },
+        {
+          "departement": "Complément",
+          "prix_par_transporteur": {
+            "BETOTRANS": 0,
+            "LACHAUD": 50,
+            "MRCI": 50,
+            "XPO": 50,
+            "CONTE": 55,
+            "SCHENKER": 55,
+            "VEYSSET": 60
+          }
+        }
+      ]
+    }
+  ]
+};
