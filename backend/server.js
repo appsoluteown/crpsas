@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const { GoogleGenAI, Type } = require("@google/genai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 const { google } = require('googleapis');
 const { Storage } = require('@google-cloud/storage');
 const archiver = require('archiver');
@@ -57,7 +57,30 @@ const drive = google.drive({ version: 'v3', auth });
 const storage = new Storage();
 
 // Initialisation Gemini
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const apiKey = process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.trim() : "";
+console.log(`[DEBUG] API Key loaded: ${apiKey ? apiKey.substring(0, 10) + '...' : 'UNDEFINED'} (Length: ${apiKey.length})`);
+const genAI = new GoogleGenerativeAI(apiKey);
+
+// Endpoint de test Gemini simple
+app.get('/api/test-gemini', async (req, res) => {
+  try {
+    const model = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
+    const result = await model.generateContent('Hello Gemini!');
+    const response = await result.response; 
+    res.json({ 
+      status: 'success', 
+      message: response.text(),
+      model: 'gemini-3-flash-preview'
+    });
+  } catch (error) {
+    console.error('Test Gemini Failed:', error);
+    res.status(500).json({ 
+      status: 'error', 
+      message: error.message,
+      stack: error.stack
+    });
+  }
+});
 
 // ============================================================
 // ÉTAT DE L'INDEXATION (en mémoire)
@@ -206,13 +229,23 @@ async function extractReferencesFromPDF(fileId, fileName) {
       setTimeout(() => reject(new Error('Timeout Gemini')), 30000)
     );
 
-    const analysisPromise = ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: {
-        parts: [
-          { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
-          {
-            text: `Tu es un assistant technique CRP SAS. Analyse cette fiche technique PDF.
+    const analysisPromise = genAI.getGenerativeModel({
+      model: 'gemini-3-flash-preview',
+      generationConfig: {
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "ARRAY",
+          items: { type: "STRING" }
+        }
+      }
+    }).generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
+            {
+              text: `Tu es un assistant technique CRP SAS. Analyse cette fiche technique PDF.
 
 Tâche: Extraire UNIQUEMENT les références produit COMPLÈTES mentionnées dans ce document.
 
@@ -236,20 +269,15 @@ IMPORTANT - Règles d'extraction:
 
 Retourne UNIQUEMENT les codes COMPLETS trouvés, pas les fragments.
 Si aucune référence complète n'est trouvée, retourne un tableau vide [].` }
-        ]
-      },
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.ARRAY,
-          items: { type: Type.STRING }
+          ]
         }
-      }
+      ]
     });
 
-    const response = await Promise.race([analysisPromise, timeoutPromise]);
+    const result = await Promise.race([analysisPromise, timeoutPromise]);
+    const response = await result.response;
 
-    const references = JSON.parse(response.text || "[]");
+    const references = JSON.parse(response.text() || "[]");
     console.log(`  -> ${fileName}: ${references.length} références trouvées`);
     return references;
 
@@ -426,35 +454,40 @@ app.post('/api/process-devis', upload.single('devis'), async (req, res) => {
     const fileBuffer = fs.readFileSync(req.file.path);
     const base64Data = fileBuffer.toString('base64');
 
-    const geminiExtraction = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: {
-        parts: [
-          { inlineData: { mimeType: 'application/pdf', data: base64Data } },
-          {
-            text: `Analyse ce devis. Pour chaque ligne de produit, extrais:
-- reference: le code article/référence (ex: "10002000FOND60")
-- description: la description complète incluant dimensions et poids (ex: "Elément de fond 1000 x 2000 - H600 - 1645kg")
-
-Retourne un tableau JSON avec ces objets.` }
-        ]
-      },
-      config: {
+    const geminiExtraction = await genAI.getGenerativeModel({
+      model: 'gemini-3-flash-preview',
+      generationConfig: {
         responseMimeType: "application/json",
         responseSchema: {
-          type: Type.ARRAY,
+          type: "ARRAY",
           items: {
-            type: Type.OBJECT,
+            type: "OBJECT",
             properties: {
-              reference: { type: Type.STRING },
-              description: { type: Type.STRING }
+              reference: { type: "STRING" },
+              description: { type: "STRING" }
             }
           }
         }
       }
+    }).generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { inlineData: { mimeType: 'application/pdf', data: base64Data } },
+            {
+              text: `Analyse ce devis. Pour chaque ligne de produit, extrais:
+- reference: le code article/référence (ex: "10002000FOND60")
+- description: la description complète incluant dimensions et poids (ex: "Elément de fond 1000 x 2000 - H600 - 1645kg")
+
+Retourne un tableau JSON avec ces objets.` }
+          ]
+        }
+      ]
     });
 
-    const products = JSON.parse(geminiExtraction.text || "[]");
+    const response = await geminiExtraction.response;
+    const products = JSON.parse(response.text() || "[]");
     console.log(`> ${products.length} produits identifiés`);
     products.forEach(p => console.log(`  - ${p.reference}: ${p.description}`));
 
@@ -557,13 +590,27 @@ Retourne un tableau JSON avec ces objets.` }
           const pdfBase64 = pdfBuffer.toString('base64');
 
           // Demander à Gemini de vérifier si ce PDF contient le produit exact
-          const verifyResp = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: {
-              parts: [
-                { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
-                {
-                  text: `Vérifie si cette fiche technique correspond au produit suivant:
+          // Demander à Gemini de vérifier si ce PDF contient le produit exact
+          const verifyResp = await genAI.getGenerativeModel({
+            model: 'gemini-3-flash-preview',
+            generationConfig: {
+              responseMimeType: "application/json",
+              responseSchema: {
+                type: "OBJECT",
+                properties: {
+                  match: { type: "BOOLEAN" },
+                  reason: { type: "STRING" }
+                }
+              }
+            }
+          }).generateContent({
+            contents: [
+              {
+                role: "user",
+                parts: [
+                  { inlineData: { mimeType: 'application/pdf', data: pdfBase64 } },
+                  {
+                    text: `Vérifie si cette fiche technique correspond au produit suivant:
 Référence: ${ref}
 Description: ${desc}
 
@@ -571,21 +618,13 @@ Réponds:
 - "match": true si la fiche contient ce produit EXACT (même référence ET caractéristiques similaires comme dimensions/poids)
 - "match": false si la référence n'est pas présente ou si les caractéristiques ne correspondent pas
 - "reason": explication courte` }
-              ]
-            },
-            config: {
-              responseMimeType: "application/json",
-              responseSchema: {
-                type: Type.OBJECT,
-                properties: {
-                  match: { type: Type.BOOLEAN },
-                  reason: { type: Type.STRING }
-                }
+                ]
               }
-            }
+            ]
           });
 
-          const verifyResult = JSON.parse(verifyResp.text || "{}");
+          const response = await verifyResp.response;
+          const verifyResult = JSON.parse(response.text() || "{}");
           console.log(`    -> Match: ${verifyResult.match} (${verifyResult.reason})`);
 
           if (verifyResult.match === true) {

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+models.json
+test_key.js
+test_standard_sdk.js
+sources/
