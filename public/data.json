@@ -1,7 +1,7 @@
 {
-  "fichier": "Re_cap_transports_tarifs-B1P00200.xlsx",
+  "fichier": "Récap transports tarifs-B1P00200.xlsx",
   "description": "Grille tarifaire transport - France",
-  "date_extraction": "2026-03-25",
+  "date_extraction": "2026-06-22",
   "feuilles": [
     {
       "nom": "Général - Taut",
@@ -41,7 +41,7 @@
             "XPO": 694.3,
             "SCHENKER": 708.24,
             "GEODIS": 838.54,
-            "LACHAUD24": 902.0
+            "LACHAUD24": 902
           }
         },
         {
@@ -59,7 +59,7 @@
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
             "GEODIS": 423.73,
-            "KUEHNE": 426.0,
+            "KUEHNE": 426,
             "SCHENKER": 434.72,
             "XPO": 466.4
           }
@@ -69,7 +69,7 @@
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
             "GEODIS": 423.73,
-            "KUEHNE": 426.0,
+            "KUEHNE": 426,
             "SCHENKER": 434.72,
             "XPO": 466.4
           }
@@ -81,7 +81,7 @@
             "XPO": 816.2,
             "KUEHNE": 820.05,
             "GEODIS": 827.42,
-            "SCHENKER": 858.0
+            "SCHENKER": 858
           }
         },
         {
@@ -120,7 +120,7 @@
             "GEODIS": 334.76,
             "SCHENKER": 355.68,
             "XPO": 408.1,
-            "LACHAUD24": 440.0,
+            "LACHAUD24": 440,
             "KUEHNE": 468.6
           }
         },
@@ -150,7 +150,7 @@
             "LACHAUD24": 0.0,
             "KUEHNE": 266.25,
             "GEODIS": 276.92,
-            "SCHENKER": 286.0,
+            "SCHENKER": 286,
             "XPO": 349.8
           }
         },
@@ -160,7 +160,7 @@
             "LACHAUD24": 0.0,
             "KUEHNE": 266.25,
             "GEODIS": 276.92,
-            "SCHENKER": 286.0,
+            "SCHENKER": 286,
             "XPO": 349.8
           }
         },
@@ -171,7 +171,7 @@
             "SCHENKER": 845.52,
             "KUEHNE": 883.95,
             "GEODIS": 921.96,
-            "LACHAUD24": 1045.0
+            "LACHAUD24": 1045
           }
         },
         {
@@ -211,7 +211,7 @@
             "KUEHNE": 287.55,
             "SCHENKER": 342.16,
             "XPO": 349.8,
-            "LACHAUD24": 396.0
+            "LACHAUD24": 396
           }
         },
         {
@@ -221,7 +221,7 @@
             "KUEHNE": 287.55,
             "SCHENKER": 342.16,
             "XPO": 349.8,
-            "LACHAUD24": 396.0
+            "LACHAUD24": 396
           }
         },
         {
@@ -238,7 +238,7 @@
           "departement": "26 - Drôme",
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
-            "XPO": 583.0,
+            "XPO": 583,
             "SCHENKER": 584.48,
             "KUEHNE": 649.65,
             "GEODIS": 686.18
@@ -251,17 +251,17 @@
             "SCHENKER": 708.24,
             "XPO": 722.92,
             "GEODIS": 760.69,
-            "LACHAUD24": 825.0
+            "LACHAUD24": 825
           }
         },
         {
           "departement": "28 - Eure et Loire",
           "prix_par_transporteur": {
-            "KUEHNE": 639.0,
+            "KUEHNE": 639,
             "GEODIS": 640.58,
             "XPO": 641.3,
             "SCHENKER": 683.28,
-            "LACHAUD24": 704.0
+            "LACHAUD24": 704
           }
         },
         {
@@ -281,7 +281,7 @@
             "GEODIS": 413.71,
             "SCHENKER": 434.72,
             "XPO": 449.44,
-            "LACHAUD24": 616.0
+            "LACHAUD24": 616
           }
         },
         {
@@ -401,7 +401,7 @@
             "XPO": 874.5,
             "SCHENKER": 931.84,
             "GEODIS": 1033.17,
-            "KUEHNE": 1065.0
+            "KUEHNE": 1065
           }
         },
         {
@@ -419,7 +419,7 @@
           "prix_par_transporteur": {
             "GEODIS": 506.02,
             "XPO": 513.04,
-            "LACHAUD24": 517.0,
+            "LACHAUD24": 517,
             "KUEHNE": 532.5,
             "SCHENKER": 534.56
           }
@@ -430,7 +430,7 @@
             "KUEHNE": 479.25,
             "SCHENKER": 497.12,
             "GEODIS": 508.25,
-            "LACHAUD24": 550.0,
+            "LACHAUD24": 550,
             "XPO": 554.38
           }
         },
@@ -438,7 +438,7 @@
           "departement": "43 - Haute Loire",
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
-            "KUEHNE": 426.0,
+            "KUEHNE": 426,
             "GEODIS": 492.68,
             "SCHENKER": 497.12,
             "XPO": 524.7
@@ -489,7 +489,7 @@
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
             "GEODIS": 371.45,
-            "KUEHNE": 426.0,
+            "KUEHNE": 426,
             "SCHENKER": 434.72,
             "XPO": 443.08
           }
@@ -498,7 +498,7 @@
           "departement": "48 - Lozère",
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
-            "KUEHNE": 426.0,
+            "KUEHNE": 426,
             "SCHENKER": 497.12,
             "GEODIS": 508.25,
             "XPO": 542.72
@@ -521,14 +521,14 @@
             "XPO": 869.2,
             "GEODIS": 926.41,
             "SCHENKER": 931.84,
-            "KUEHNE": 1065.0
+            "KUEHNE": 1065
           }
         },
         {
           "departement": "50 - Manche",
           "prix_par_transporteur": {
             "LACHAUD24": 0.0,
-            "KUEHNE": 852.0,
+            "KUEHNE": 852,
             "XPO": 897.82,
             "GEODIS": 940.86,
             "SCHENKER": 956.8
@@ -540,7 +540,7 @@
             "LACHAUD24": 0.0,
             "SCHENKER": 808.08,
             "XPO": 827.86,
-            "KUEHNE": 852.0,
+            "KUEHNE": 852,
             "GEODIS": 983.12
           }
         },
@@ -601,7 +601,7 @@
             "SCHENKER": 870.48,
             "XPO": 874.5,
             "KUEHNE": 915.9,
-            "GEODIS": 1101.0
+            "GEODIS": 1101
           }
         },
         {
@@ -621,7 +621,7 @@
             "SCHENKER": 907.92,
             "XPO": 979.44,
             "GEODIS": 1044.29,
-            "LACHAUD24": 1133.0
+            "LACHAUD24": 1133
           }
         },
         {
@@ -630,7 +630,7 @@
             "LACHAUD24": 0.0,
             "XPO": 991.1,
             "SCHENKER": 1056.64,
-            "KUEHNE": 1065.0,
+            "KUEHNE": 1065,
             "GEODIS": 1085.43
           }
         },
@@ -641,7 +641,7 @@
             "XPO": 787.58,
             "SCHENKER": 808.08,
             "GEODIS": 846.33,
-            "LACHAUD24": 957.0
+            "LACHAUD24": 957
           }
         },
         {
@@ -661,7 +661,7 @@
             "SCHENKER": 931.84,
             "XPO": 991.1,
             "GEODIS": 1044.29,
-            "LACHAUD24": 1155.0
+            "LACHAUD24": 1155
           }
         },
         {
@@ -671,7 +671,7 @@
             "KUEHNE": 340.8,
             "SCHENKER": 373.36,
             "XPO": 408.1,
-            "LACHAUD24": 429.0
+            "LACHAUD24": 429
           }
         },
         {
@@ -681,7 +681,7 @@
             "XPO": 571.34,
             "GEODIS": 602.77,
             "SCHENKER": 609.44,
-            "LACHAUD24": 660.0
+            "LACHAUD24": 660
           }
         },
         {
@@ -691,7 +691,7 @@
             "KUEHNE": 564.45,
             "GEODIS": 602.77,
             "SCHENKER": 621.92,
-            "LACHAUD24": 638.0
+            "LACHAUD24": 638
           }
         },
         {
@@ -731,7 +731,7 @@
             "KUEHNE": 548.48,
             "GEODIS": 566.08,
             "XPO": 569.22,
-            "LACHAUD24": 594.0
+            "LACHAUD24": 594
           }
         },
         {
@@ -767,7 +767,7 @@
         {
           "departement": "72 - Sarthe",
           "prix_par_transporteur": {
-            "XPO": 583.0,
+            "XPO": 583,
             "SCHENKER": 621.92,
             "KUEHNE": 660.3,
             "LACHAUD24": 668.8,
@@ -801,7 +801,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 683.69,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -821,7 +821,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 683.28,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -831,7 +831,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 683.28,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -861,7 +861,7 @@
             "SCHENKER": 808.08,
             "XPO": 839.52,
             "GEODIS": 926.41,
-            "LACHAUD24": 968.0
+            "LACHAUD24": 968
           }
         },
         {
@@ -908,7 +908,7 @@
           "departement": "85 - Vendée",
           "prix_par_transporteur": {
             "KUEHNE": 553.8,
-            "XPO": 583.0,
+            "XPO": 583,
             "SCHENKER": 609.44,
             "LACHAUD24": 623.7,
             "GEODIS": 712.88
@@ -920,7 +920,7 @@
             "SCHENKER": 409.76,
             "XPO": 419.76,
             "GEODIS": 423.73,
-            "KUEHNE": 426.0,
+            "KUEHNE": 426,
             "LACHAUD24": 487.3
           }
         },
@@ -930,7 +930,7 @@
             "GEODIS": 279.15,
             "KUEHNE": 308.85,
             "SCHENKER": 348.4,
-            "LACHAUD24": 385.0,
+            "LACHAUD24": 385,
             "XPO": 396.44
           }
         },
@@ -940,7 +940,7 @@
             "GEODIS": 279.15,
             "KUEHNE": 308.85,
             "SCHENKER": 348.4,
-            "LACHAUD24": 385.0,
+            "LACHAUD24": 385,
             "XPO": 396.44
           }
         },
@@ -961,7 +961,7 @@
             "SCHENKER": 609.44,
             "GEODIS": 619.46,
             "XPO": 629.64,
-            "LACHAUD24": 770.0
+            "LACHAUD24": 770
           }
         },
         {
@@ -991,7 +991,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 695.76,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -1001,7 +1001,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 695.76,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -1011,7 +1011,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 695.76,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -1021,7 +1021,7 @@
             "LACHAUD24": 676.5,
             "SCHENKER": 695.76,
             "XPO": 722.92,
-            "GEODIS": 734.0
+            "GEODIS": 734
           }
         },
         {
@@ -1030,7 +1030,7 @@
             "KUEHNE": 649.65,
             "LACHAUD24": 676.5,
             "SCHENKER": 695.76,
-            "GEODIS": 734.0,
+            "GEODIS": 734,
             "XPO": 757.9
           }
         },
@@ -1047,10 +1047,10 @@
         {
           "departement": "Complément",
           "prix_par_transporteur": {
-            "XPO": 53.0,
+            "XPO": 53,
             "KUEHNE": 53.25,
             "GEODIS": 54.25,
-            "LACHAUD24": 55.0,
+            "LACHAUD24": 55,
             "SCHENKER": 57.2
           }
         }
@@ -1890,1880 +1890,6 @@
             "LACHAUD": 50,
             "CONTE": 55,
             "VEYSSET": 60
-          }
-        }
-      ]
-    },
-    {
-      "nom": "Thomas - Taut",
-      "type": "Taut",
-      "info": "TAXE GAZOLE COMPRISE",
-      "facteurs_taxe_gazole": {
-        "GEODIS": 1.085,
-        "KUEHNE": 1.065,
-        "LACHAUD24": 1.1,
-        "SCHENKER": 1.04,
-        "XPO": 1.06
-      },
-      "pays": "France",
-      "transporteurs": [
-        "GEODIS",
-        "KUEHNE",
-        "LACHAUD24",
-        "SCHENKER",
-        "XPO"
-      ],
-      "nombre_departements": 50,
-      "tarifs": [
-        {
-          "departement": "10 - Aube",
-          "prix_par_transporteur": {
-            "KUEHNE": 681.6,
-            "XPO": 694.3,
-            "SCHENKER": 708.24,
-            "GEODIS": 838.54,
-            "LACHAUD24": 902.0
-          }
-        },
-        {
-          "departement": "14 - Calvados",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 757.9,
-            "KUEHNE": 777.45,
-            "SCHENKER": 808.08,
-            "GEODIS": 838.54
-          }
-        },
-        {
-          "departement": "2 - Aisne",
-          "prix_par_transporteur": {
-            "XPO": 810.9,
-            "SCHENKER": 845.52,
-            "KUEHNE": 883.95,
-            "GEODIS": 921.96,
-            "LACHAUD24": 1045.0
-          }
-        },
-        {
-          "departement": "21 : Côte d'Or",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 646.45,
-            "SCHENKER": 646.88,
-            "XPO": 676.28,
-            "GEODIS": 712.88
-          }
-        },
-        {
-          "departement": "22 - Côtes d'Armor",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 820.05,
-            "XPO": 862.84,
-            "SCHENKER": 919.36,
-            "GEODIS": 934.18
-          }
-        },
-        {
-          "departement": "25 - Doubs",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 720.72,
-            "XPO": 734.58,
-            "KUEHNE": 766.8,
-            "GEODIS": 805.18
-          }
-        },
-        {
-          "departement": "27 - Eure",
-          "prix_par_transporteur": {
-            "KUEHNE": 692.25,
-            "SCHENKER": 708.24,
-            "XPO": 722.92,
-            "GEODIS": 760.69,
-            "LACHAUD24": 825.0
-          }
-        },
-        {
-          "departement": "28 - Eure et Loire",
-          "prix_par_transporteur": {
-            "KUEHNE": 639.0,
-            "GEODIS": 640.58,
-            "XPO": 641.3,
-            "SCHENKER": 683.28,
-            "LACHAUD24": 704.0
-          }
-        },
-        {
-          "departement": "29 - Finistère",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 904.18,
-            "KUEHNE": 947.85,
-            "SCHENKER": 963.04,
-            "GEODIS": 966.44
-          }
-        },
-        {
-          "departement": "35 - Ille et VIlaine",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 676.28,
-            "SCHENKER": 683.28,
-            "KUEHNE": 777.45,
-            "GEODIS": 789.61
-          }
-        },
-        {
-          "departement": "37 - Indre et Loire",
-          "prix_par_transporteur": {
-            "GEODIS": 506.02,
-            "LACHAUD24": 510.4,
-            "XPO": 519.4,
-            "KUEHNE": 532.5,
-            "SCHENKER": 534.56
-          }
-        },
-        {
-          "departement": "39 - Jura",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 621.92,
-            "XPO": 641.3,
-            "GEODIS": 729.55,
-            "KUEHNE": 745.5
-          }
-        },
-        {
-          "departement": "41 - Loir et Cher",
-          "prix_par_transporteur": {
-            "GEODIS": 506.02,
-            "XPO": 513.04,
-            "LACHAUD24": 517.0,
-            "KUEHNE": 532.5,
-            "SCHENKER": 534.56
-          }
-        },
-        {
-          "departement": "44 - Loire Atlantique",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 575.1,
-            "GEODIS": 623.91,
-            "XPO": 641.3,
-            "SCHENKER": 670.8
-          }
-        },
-        {
-          "departement": "45 - Loiret",
-          "prix_par_transporteur": {
-            "GEODIS": 508.25,
-            "SCHENKER": 547.04,
-            "XPO": 554.38,
-            "KUEHNE": 575.1,
-            "LACHAUD24": 612.7
-          }
-        },
-        {
-          "departement": "49 - Maine et Loire",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 543.15,
-            "XPO": 554.38,
-            "SCHENKER": 573.04,
-            "GEODIS": 623.91
-          }
-        },
-        {
-          "departement": "50 - Manche",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 852.0,
-            "XPO": 897.82,
-            "GEODIS": 940.86,
-            "SCHENKER": 956.8
-          }
-        },
-        {
-          "departement": "51 - Marne",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 808.08,
-            "XPO": 827.86,
-            "KUEHNE": 852.0,
-            "GEODIS": 983.12
-          }
-        },
-        {
-          "departement": "52 - Haute Marne",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 745.68,
-            "XPO": 799.24,
-            "KUEHNE": 830.7,
-            "GEODIS": 866.35
-          }
-        },
-        {
-          "departement": "53 - Mayenne",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 641.3,
-            "SCHENKER": 683.28,
-            "KUEHNE": 713.55,
-            "GEODIS": 730.67
-          }
-        },
-        {
-          "departement": "54 - Meurthe et Moselle",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 808.08,
-            "XPO": 862.84,
-            "KUEHNE": 937.2,
-            "GEODIS": 1027.6
-          }
-        },
-        {
-          "departement": "55 - Meuse",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 808.08,
-            "KUEHNE": 894.6,
-            "XPO": 919.02,
-            "GEODIS": 1049.85
-          }
-        },
-        {
-          "departement": "56 - Morbihan",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 757.9,
-            "GEODIS": 787.38,
-            "SCHENKER": 795.6,
-            "KUEHNE": 809.4
-          }
-        },
-        {
-          "departement": "57 - Moselle",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 870.48,
-            "XPO": 874.5,
-            "KUEHNE": 915.9,
-            "GEODIS": 1101.0
-          }
-        },
-        {
-          "departement": "59 - Nord",
-          "prix_par_transporteur": {
-            "KUEHNE": 883.95,
-            "SCHENKER": 907.92,
-            "XPO": 979.44,
-            "GEODIS": 1044.29,
-            "LACHAUD24": 1133.0
-          }
-        },
-        {
-          "departement": "60 - Oise",
-          "prix_par_transporteur": {
-            "KUEHNE": 692.25,
-            "XPO": 787.58,
-            "SCHENKER": 808.08,
-            "GEODIS": 846.33,
-            "LACHAUD24": 957.0
-          }
-        },
-        {
-          "departement": "61 - Orne",
-          "prix_par_transporteur": {
-            "XPO": 676.28,
-            "GEODIS": 681.74,
-            "KUEHNE": 713.55,
-            "SCHENKER": 720.72,
-            "LACHAUD24": 760.1
-          }
-        },
-        {
-          "departement": "62 - Pas de Calais",
-          "prix_par_transporteur": {
-            "KUEHNE": 883.95,
-            "SCHENKER": 931.84,
-            "XPO": 991.1,
-            "GEODIS": 1044.29,
-            "LACHAUD24": 1155.0
-          }
-        },
-        {
-          "departement": "67 - Bas Rhin",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 931.84,
-            "KUEHNE": 947.85,
-            "XPO": 991.1,
-            "GEODIS": 1158.83
-          }
-        },
-        {
-          "departement": "68 - Haut Rhin",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 833.04,
-            "XPO": 839.52,
-            "KUEHNE": 926.55,
-            "GEODIS": 1048.74
-          }
-        },
-        {
-          "departement": "70 - Haute Saône",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 722.92,
-            "SCHENKER": 745.68,
-            "KUEHNE": 820.05,
-            "GEODIS": 861.9
-          }
-        },
-        {
-          "departement": "71 - Saône et Loire",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 472.16,
-            "XPO": 571.34,
-            "GEODIS": 602.77,
-            "KUEHNE": 649.65
-          }
-        },
-        {
-          "departement": "72 - Sarthe",
-          "prix_par_transporteur": {
-            "XPO": 583.0,
-            "SCHENKER": 621.92,
-            "KUEHNE": 660.3,
-            "LACHAUD24": 668.8,
-            "GEODIS": 730.67
-          }
-        },
-        {
-          "departement": "75 - Ile de France",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 683.69,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "76 - Seine Maritime",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 830.7,
-            "SCHENKER": 833.04,
-            "XPO": 851.18,
-            "GEODIS": 926.41
-          }
-        },
-        {
-          "departement": "77 - Seine et Marne",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 683.28,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "78 - Yvelines",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 683.28,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "79 - Deux Sèvres",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 479.25,
-            "XPO": 489.72,
-            "SCHENKER": 497.12,
-            "GEODIS": 500.46
-          }
-        },
-        {
-          "departement": "8 - Ardennes",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 905.25,
-            "XPO": 909.48,
-            "SCHENKER": 931.84,
-            "GEODIS": 1055.41
-          }
-        },
-        {
-          "departement": "80 - Somme",
-          "prix_par_transporteur": {
-            "KUEHNE": 798.75,
-            "SCHENKER": 808.08,
-            "XPO": 839.52,
-            "GEODIS": 926.41,
-            "LACHAUD24": 968.0
-          }
-        },
-        {
-          "departement": "85 - Vendée",
-          "prix_par_transporteur": {
-            "KUEHNE": 553.8,
-            "XPO": 583.0,
-            "SCHENKER": 609.44,
-            "LACHAUD24": 623.7,
-            "GEODIS": 712.88
-          }
-        },
-        {
-          "departement": "86 - Vienne",
-          "prix_par_transporteur": {
-            "SCHENKER": 409.76,
-            "XPO": 419.76,
-            "GEODIS": 423.73,
-            "KUEHNE": 426.0,
-            "LACHAUD24": 487.3
-          }
-        },
-        {
-          "departement": "88 - Vosges",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 808.08,
-            "XPO": 839.52,
-            "KUEHNE": 883.95,
-            "GEODIS": 993.13
-          }
-        },
-        {
-          "departement": "89 - Yonne",
-          "prix_par_transporteur": {
-            "KUEHNE": 585.75,
-            "SCHENKER": 609.44,
-            "GEODIS": 619.46,
-            "XPO": 629.64,
-            "LACHAUD24": 770.0
-          }
-        },
-        {
-          "departement": "90 - Teritoire de Belfort",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 808.08,
-            "KUEHNE": 809.4,
-            "XPO": 816.2,
-            "GEODIS": 931.96
-          }
-        },
-        {
-          "departement": "91 - Essonne",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 695.76,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "92 - Hauts de Seine",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 695.76,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "93 - Seine St Denis",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 695.76,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "94 - Val de Marne",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 695.76,
-            "XPO": 722.92,
-            "GEODIS": 734.0
-          }
-        },
-        {
-          "departement": "95 - Val d'Oise",
-          "prix_par_transporteur": {
-            "KUEHNE": 649.65,
-            "LACHAUD24": 676.5,
-            "SCHENKER": 695.76,
-            "GEODIS": 734.0,
-            "XPO": 757.9
-          }
-        }
-      ]
-    },
-    {
-      "nom": "Thomas - Plateau",
-      "type": "Plateau",
-      "info": "HORS TAXE GAZOLE",
-      "pays": "France",
-      "transporteurs": [
-        "CONTE",
-        "LACHAUD",
-        "VEYSSET"
-      ],
-      "nombre_departements": 50,
-      "tarifs": [
-        {
-          "departement": "10 - Aube",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 880,
-            "CONTE": 1015
-          }
-        },
-        {
-          "departement": "14 - Calvados",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 880,
-            "CONTE": 1026
-          }
-        },
-        {
-          "departement": "2 - Aisne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 880,
-            "CONTE": 1036
-          }
-        },
-        {
-          "departement": "21 : Côte d'Or",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 770,
-            "CONTE": 851
-          }
-        },
-        {
-          "departement": "22 - Côtes d'Armor",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 980,
-            "CONTE": 1053
-          }
-        },
-        {
-          "departement": "25 - Doubs",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 820,
-            "CONTE": 982
-          }
-        },
-        {
-          "departement": "27 - Eure",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 930,
-            "CONTE": 1015
-          }
-        },
-        {
-          "departement": "28 - Eure et Loire",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 670,
-            "CONTE": 770
-          }
-        },
-        {
-          "departement": "29 - Finistère",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 1010,
-            "CONTE": 1192
-          }
-        },
-        {
-          "departement": "35 - Ille et VIlaine",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 820,
-            "CONTE": 919
-          }
-        },
-        {
-          "departement": "37 - Indre et Loire",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 570,
-            "CONTE": 611
-          }
-        },
-        {
-          "departement": "39 - Jura",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 800,
-            "CONTE": 873
-          }
-        },
-        {
-          "departement": "41 - Loir et Cher",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 606,
-            "VEYSSET": 620
-          }
-        },
-        {
-          "departement": "44 - Loire Atlantique",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 670,
-            "CONTE": 722
-          }
-        },
-        {
-          "departement": "45 - Loiret",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 600,
-            "CONTE": 722
-          }
-        },
-        {
-          "departement": "49 - Maine et Loire",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 620,
-            "CONTE": 660
-          }
-        },
-        {
-          "departement": "50 - Manche",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 1030,
-            "CONTE": 1145
-          }
-        },
-        {
-          "departement": "51 - Marne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 880,
-            "CONTE": 1048
-          }
-        },
-        {
-          "departement": "52 - Haute Marne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 910,
-            "CONTE": 993
-          }
-        },
-        {
-          "departement": "53 - Mayenne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 750,
-            "CONTE": 808
-          }
-        },
-        {
-          "departement": "54 - Meurthe et Moselle",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 910,
-            "CONTE": 1233
-          }
-        },
-        {
-          "departement": "55 - Meuse",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 960,
-            "CONTE": 1254
-          }
-        },
-        {
-          "departement": "56 - Morbihan",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 920,
-            "CONTE": 970
-          }
-        },
-        {
-          "departement": "57 - Moselle",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 980,
-            "CONTE": 1299
-          }
-        },
-        {
-          "departement": "59 - Nord",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 980,
-            "CONTE": 1252
-          }
-        },
-        {
-          "departement": "60 - Oise",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 770,
-            "CONTE": 1036
-          }
-        },
-        {
-          "departement": "61 - Orne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 810,
-            "CONTE": 917
-          }
-        },
-        {
-          "departement": "62 - Pas de Calais",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 980,
-            "CONTE": 1252
-          }
-        },
-        {
-          "departement": "67 - Bas Rhin",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 1030,
-            "CONTE": 1353
-          }
-        },
-        {
-          "departement": "68 - Haut Rhin",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 960,
-            "CONTE": 1200
-          }
-        },
-        {
-          "departement": "70 - Haute Saône",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 880,
-            "CONTE": 1015
-          }
-        },
-        {
-          "departement": "71 - Saône et Loire",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 692,
-            "VEYSSET": 700
-          }
-        },
-        {
-          "departement": "72 - Sarthe",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 670,
-            "CONTE": 780
-          }
-        },
-        {
-          "departement": "75 - Ile de France",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 982
-          }
-        },
-        {
-          "departement": "76 - Seine Maritime",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 910,
-            "CONTE": 1076
-          }
-        },
-        {
-          "departement": "77 - Seine et Marne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 938
-          }
-        },
-        {
-          "departement": "78 - Yvelines",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 961
-          }
-        },
-        {
-          "departement": "79 - Deux Sèvres",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 550,
-            "VEYSSET": 580
-          }
-        },
-        {
-          "departement": "8 - Ardennes",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 1080,
-            "CONTE": 1233
-          }
-        },
-        {
-          "departement": "80 - Somme",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 930,
-            "CONTE": 1129
-          }
-        },
-        {
-          "departement": "85 - Vendée",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 626,
-            "VEYSSET": 670
-          }
-        },
-        {
-          "departement": "86 - Vienne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 490,
-            "CONTE": 505
-          }
-        },
-        {
-          "departement": "88 - Vosges",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 980,
-            "CONTE": 1145
-          }
-        },
-        {
-          "departement": "89 - Yonne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 788,
-            "VEYSSET": 820
-          }
-        },
-        {
-          "departement": "90 - Teritoire de Belfort",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 910,
-            "CONTE": 1058
-          }
-        },
-        {
-          "departement": "91 - Essonne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 818
-          }
-        },
-        {
-          "departement": "92 - Hauts de Seine",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 879
-          }
-        },
-        {
-          "departement": "93 - Seine St Denis",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 879
-          }
-        },
-        {
-          "departement": "94 - Val de Marne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 879
-          }
-        },
-        {
-          "departement": "95 - Val d'Oise",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 720,
-            "CONTE": 919
-          }
-        }
-      ]
-    },
-    {
-      "nom": "Gabrielle - Taut",
-      "type": "Taut",
-      "info": "TAXE GAZOLE COMPRISE",
-      "facteurs_taxe_gazole": {
-        "GEODIS": 1.085,
-        "KUEHNE": 1.065,
-        "LACHAUD24": 1.1,
-        "SCHENKER": 1.04,
-        "XPO": 1.06
-      },
-      "pays": "France",
-      "transporteurs": [
-        "GEODIS",
-        "KUEHNE",
-        "LACHAUD24",
-        "SCHENKER",
-        "XPO"
-      ],
-      "nombre_departements": 50,
-      "tarifs": [
-        {
-          "departement": "1 - Ain",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 585.75,
-            "SCHENKER": 596.96,
-            "XPO": 641.3,
-            "GEODIS": 657.27
-          }
-        },
-        {
-          "departement": "11 - Aude",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 461.1,
-            "SCHENKER": 497.12,
-            "GEODIS": 500.46,
-            "KUEHNE": 660.3
-          }
-        },
-        {
-          "departement": "12 - Aveyron ZONE A",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 423.73,
-            "KUEHNE": 426.0,
-            "SCHENKER": 434.72,
-            "XPO": 466.4
-          }
-        },
-        {
-          "departement": "12 - Aveyron ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 423.73,
-            "KUEHNE": 426.0,
-            "SCHENKER": 434.72,
-            "XPO": 466.4
-          }
-        },
-        {
-          "departement": "13 - Bouches du Rhone",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 816.2,
-            "KUEHNE": 820.05,
-            "GEODIS": 827.42,
-            "SCHENKER": 858.0
-          }
-        },
-        {
-          "departement": "15 - Cantal ZONE A",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 266.25,
-            "GEODIS": 279.15,
-            "SCHENKER": 310.96,
-            "XPO": 408.1
-          }
-        },
-        {
-          "departement": "15 - Cantal ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 266.25,
-            "GEODIS": 279.15,
-            "SCHENKER": 310.96,
-            "XPO": 408.1
-          }
-        },
-        {
-          "departement": "16 - Charente",
-          "prix_par_transporteur": {
-            "GEODIS": 334.76,
-            "SCHENKER": 355.68,
-            "XPO": 408.1,
-            "LACHAUD24": 440.0,
-            "KUEHNE": 468.6
-          }
-        },
-        {
-          "departement": "17 - Charente Maritime",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 500.46,
-            "KUEHNE": 500.55,
-            "XPO": 524.7,
-            "SCHENKER": 547.04
-          }
-        },
-        {
-          "departement": "18 - Cher",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 468.21,
-            "SCHENKER": 472.16,
-            "XPO": 478.06,
-            "KUEHNE": 532.5
-          }
-        },
-        {
-          "departement": "19 - Correze ZONE A",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 266.25,
-            "GEODIS": 276.92,
-            "SCHENKER": 286.0,
-            "XPO": 349.8
-          }
-        },
-        {
-          "departement": "19 - Corrèze ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 266.25,
-            "GEODIS": 276.92,
-            "SCHENKER": 286.0,
-            "XPO": 349.8
-          }
-        },
-        {
-          "departement": "23 - Creuse",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 308.06,
-            "KUEHNE": 340.8,
-            "SCHENKER": 348.4,
-            "XPO": 452.62
-          }
-        },
-        {
-          "departement": "24 - Dordogne ZONE A",
-          "prix_par_transporteur": {
-            "GEODIS": 279.15,
-            "KUEHNE": 287.55,
-            "SCHENKER": 342.16,
-            "XPO": 349.8,
-            "LACHAUD24": 396.0
-          }
-        },
-        {
-          "departement": "24 - Dordogne ZONE B",
-          "prix_par_transporteur": {
-            "GEODIS": 279.15,
-            "KUEHNE": 287.55,
-            "SCHENKER": 342.16,
-            "XPO": 349.8,
-            "LACHAUD24": 396.0
-          }
-        },
-        {
-          "departement": "26 - Drôme",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 583.0,
-            "SCHENKER": 584.48,
-            "KUEHNE": 649.65,
-            "GEODIS": 686.18
-          }
-        },
-        {
-          "departement": "3 - Allier",
-          "prix_par_transporteur": {
-            "KUEHNE": 362.1,
-            "GEODIS": 413.71,
-            "SCHENKER": 434.72,
-            "XPO": 449.44,
-            "LACHAUD24": 616.0
-          }
-        },
-        {
-          "departement": "30 - Gard",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 617.98,
-            "SCHENKER": 683.28,
-            "GEODIS": 729.55,
-            "KUEHNE": 745.5
-          }
-        },
-        {
-          "departement": "31 - Haute Garonne",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 351.45,
-            "GEODIS": 371.45,
-            "SCHENKER": 401.44,
-            "XPO": 524.7
-          }
-        },
-        {
-          "departement": "32 - Gers",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 371.45,
-            "KUEHNE": 394.05,
-            "XPO": 542.72,
-            "SCHENKER": 547.04
-          }
-        },
-        {
-          "departement": "33 - Gironde ZONE A",
-          "prix_par_transporteur": {
-            "GEODIS": 371.45,
-            "SCHENKER": 401.44,
-            "KUEHNE": 404.7,
-            "LACHAUD24": 408.1,
-            "XPO": 408.1
-          }
-        },
-        {
-          "departement": "33 - Gironde ZONE B",
-          "prix_par_transporteur": {
-            "GEODIS": 371.45,
-            "SCHENKER": 401.44,
-            "KUEHNE": 404.7,
-            "LACHAUD24": 408.1,
-            "XPO": 408.1
-          }
-        },
-        {
-          "departement": "34 - Hérault",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 617.98,
-            "SCHENKER": 658.32,
-            "GEODIS": 686.19,
-            "KUEHNE": 724.2
-          }
-        },
-        {
-          "departement": "36 - Indre",
-          "prix_par_transporteur": {
-            "SCHENKER": 401.44,
-            "KUEHNE": 404.7,
-            "GEODIS": 423.73,
-            "LACHAUD24": 487.3,
-            "XPO": 524.7
-          }
-        },
-        {
-          "departement": "38 - Isère",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 596.96,
-            "KUEHNE": 617.7,
-            "XPO": 617.98,
-            "GEODIS": 692.86
-          }
-        },
-        {
-          "departement": "4 - Alpes Haute Provence",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 874.5,
-            "SCHENKER": 931.84,
-            "GEODIS": 1033.17,
-            "KUEHNE": 1065.0
-          }
-        },
-        {
-          "departement": "40 - Landes",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 524.7,
-            "KUEHNE": 543.15,
-            "SCHENKER": 559.52,
-            "GEODIS": 563.85
-          }
-        },
-        {
-          "departement": "42 - Loire",
-          "prix_par_transporteur": {
-            "KUEHNE": 479.25,
-            "SCHENKER": 497.12,
-            "GEODIS": 508.25,
-            "LACHAUD24": 550.0,
-            "XPO": 554.38
-          }
-        },
-        {
-          "departement": "43 - Haute Loire",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 426.0,
-            "GEODIS": 492.68,
-            "SCHENKER": 497.12,
-            "XPO": 524.7
-          }
-        },
-        {
-          "departement": "46 - Lot ZONE A",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 266.25,
-            "GEODIS": 279.15,
-            "SCHENKER": 348.4,
-            "XPO": 361.46
-          }
-        },
-        {
-          "departement": "46 - Lot ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 266.25,
-            "GEODIS": 279.15,
-            "SCHENKER": 348.4,
-            "XPO": 361.46
-          }
-        },
-        {
-          "departement": "47 - Lot et Garonne",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 371.45,
-            "KUEHNE": 426.0,
-            "SCHENKER": 434.72,
-            "XPO": 443.08
-          }
-        },
-        {
-          "departement": "48 - Lozère",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 426.0,
-            "SCHENKER": 497.12,
-            "GEODIS": 508.25,
-            "XPO": 542.72
-          }
-        },
-        {
-          "departement": "5 - Hautes Alpes",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 869.2,
-            "GEODIS": 926.41,
-            "SCHENKER": 931.84,
-            "KUEHNE": 1065.0
-          }
-        },
-        {
-          "departement": "6 - Alpes Maritime",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 991.1,
-            "SCHENKER": 1056.64,
-            "KUEHNE": 1065.0,
-            "GEODIS": 1085.43
-          }
-        },
-        {
-          "departement": "63 - Puy de Dome",
-          "prix_par_transporteur": {
-            "GEODIS": 279.15,
-            "KUEHNE": 340.8,
-            "SCHENKER": 373.36,
-            "XPO": 408.1,
-            "LACHAUD24": 429.0
-          }
-        },
-        {
-          "departement": "64 - Pyrénéés Atlantique",
-          "prix_par_transporteur": {
-            "KUEHNE": 532.5,
-            "XPO": 571.34,
-            "GEODIS": 602.77,
-            "SCHENKER": 609.44,
-            "LACHAUD24": 660.0
-          }
-        },
-        {
-          "departement": "65 - Hautes Pyrénées",
-          "prix_par_transporteur": {
-            "XPO": 559.68,
-            "KUEHNE": 564.45,
-            "GEODIS": 602.77,
-            "SCHENKER": 621.92,
-            "LACHAUD24": 638.0
-          }
-        },
-        {
-          "departement": "66 - Pyrénées Orientales",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 602.77,
-            "SCHENKER": 683.28,
-            "KUEHNE": 692.25,
-            "XPO": 699.6
-          }
-        },
-        {
-          "departement": "69 - Rhône",
-          "prix_par_transporteur": {
-            "SCHENKER": 509.6,
-            "KUEHNE": 548.48,
-            "GEODIS": 566.08,
-            "XPO": 569.22,
-            "LACHAUD24": 594.0
-          }
-        },
-        {
-          "departement": "7 - Ardèche",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 559.52,
-            "XPO": 573.46,
-            "KUEHNE": 649.65,
-            "GEODIS": 742.9
-          }
-        },
-        {
-          "departement": "73 - Savoie",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 683.28,
-            "KUEHNE": 692.25,
-            "XPO": 722.92,
-            "GEODIS": 730.67
-          }
-        },
-        {
-          "departement": "74 - Haute Savoie",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "SCHENKER": 683.28,
-            "GEODIS": 730.67,
-            "XPO": 734.58,
-            "KUEHNE": 766.8
-          }
-        },
-        {
-          "departement": "81 - Tarn",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 319.5,
-            "GEODIS": 423.73,
-            "SCHENKER": 472.16,
-            "XPO": 501.38
-          }
-        },
-        {
-          "departement": "82 - Tarn et Garonne",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "KUEHNE": 319.5,
-            "SCHENKER": 355.68,
-            "GEODIS": 407.04,
-            "XPO": 443.08
-          }
-        },
-        {
-          "departement": "83 - Var",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 874.5,
-            "KUEHNE": 926.55,
-            "SCHENKER": 931.84,
-            "GEODIS": 994.24
-          }
-        },
-        {
-          "departement": "84 - Vaucluse",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "XPO": 676.28,
-            "SCHENKER": 720.72,
-            "KUEHNE": 750.82,
-            "GEODIS": 846.33
-          }
-        },
-        {
-          "departement": "9 - Ariège",
-          "prix_par_transporteur": {
-            "LACHAUD24": 0.0,
-            "GEODIS": 500.46,
-            "XPO": 524.7,
-            "KUEHNE": 532.5,
-            "SCHENKER": 534.56
-          }
-        },
-        {
-          "departement": "87 - Haute Vienne Zone A",
-          "prix_par_transporteur": {
-            "GEODIS": 279.15,
-            "KUEHNE": 308.85,
-            "SCHENKER": 348.4,
-            "LACHAUD24": 385.0,
-            "XPO": 396.44
-          }
-        },
-        {
-          "departement": "87 - Haute Vienne Zone B",
-          "prix_par_transporteur": {
-            "GEODIS": 279.15,
-            "KUEHNE": 308.85,
-            "SCHENKER": 348.4,
-            "LACHAUD24": 385.0,
-            "XPO": 396.44
-          }
-        }
-      ]
-    },
-    {
-      "nom": "Gabrielle - Plateau",
-      "type": "Plateau",
-      "info": "HORS TAXE GAZOLE",
-      "pays": "France",
-      "transporteurs": [
-        "CONTE",
-        "LACHAUD",
-        "VEYSSET"
-      ],
-      "nombre_departements": 50,
-      "tarifs": [
-        {
-          "departement": "1 - Ain",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 670,
-            "CONTE": 726
-          }
-        },
-        {
-          "departement": "11 - Aude",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 550,
-            "CONTE": 611
-          }
-        },
-        {
-          "departement": "12 - Aveyron ZONE A",
-          "prix_par_transporteur": {
-            "LACHAUD": 400,
-            "CONTE": 505,
-            "VEYSSET": 580
-          }
-        },
-        {
-          "departement": "12 - Aveyron ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD": 400,
-            "VEYSSET": 580,
-            "CONTE": 650
-          }
-        },
-        {
-          "departement": "13 - Bouches du Rhone",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 930,
-            "CONTE": 1004
-          }
-        },
-        {
-          "departement": "15 - Cantal ZONE A",
-          "prix_par_transporteur": {
-            "CONTE": 300,
-            "VEYSSET": 350,
-            "LACHAUD": 400
-          }
-        },
-        {
-          "departement": "15 - Cantal ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD": 400,
-            "VEYSSET": 400,
-            "CONTE": 470
-          }
-        },
-        {
-          "departement": "16 - Charente",
-          "prix_par_transporteur": {
-            "VEYSSET": 390,
-            "LACHAUD": 425,
-            "CONTE": 445
-          }
-        },
-        {
-          "departement": "17 - Charente Maritime",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 505,
-            "VEYSSET": 520
-          }
-        },
-        {
-          "departement": "18 - Cher",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 530,
-            "VEYSSET": 540
-          }
-        },
-        {
-          "departement": "19 - Correze ZONE A",
-          "prix_par_transporteur": {
-            "CONTE": 205,
-            "VEYSSET": 260,
-            "LACHAUD": 278
-          }
-        },
-        {
-          "departement": "19 - Corrèze ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD": 278,
-            "CONTE": 310,
-            "VEYSSET": 360
-          }
-        },
-        {
-          "departement": "23 - Creuse",
-          "prix_par_transporteur": {
-            "LACHAUD": 400,
-            "VEYSSET": 410,
-            "CONTE": 415
-          }
-        },
-        {
-          "departement": "24 - Dordogne ZONE A",
-          "prix_par_transporteur": {
-            "LACHAUD": 278,
-            "VEYSSET": 320,
-            "CONTE": 350
-          }
-        },
-        {
-          "departement": "24 - Dordogne ZONE B",
-          "prix_par_transporteur": {
-            "LACHAUD": 278,
-            "VEYSSET": 370,
-            "CONTE": 390
-          }
-        },
-        {
-          "departement": "26 - Drôme",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 840,
-            "CONTE": 875
-          }
-        },
-        {
-          "departement": "3 - Allier",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 450,
-            "CONTE": 484
-          }
-        },
-        {
-          "departement": "30 - Gard",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 820,
-            "CONTE": 879
-          }
-        },
-        {
-          "departement": "31 - Haute Garonne",
-          "prix_par_transporteur": {
-            "LACHAUD": 341,
-            "VEYSSET": 390,
-            "CONTE": 435
-          }
-        },
-        {
-          "departement": "32 - Gers",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 490,
-            "CONTE": 515
-          }
-        },
-        {
-          "departement": "33 - Gironde ZONE A",
-          "prix_par_transporteur": {
-            "VEYSSET": 390,
-            "LACHAUD": 400,
-            "CONTE": 410
-          }
-        },
-        {
-          "departement": "33 - Gironde ZONE B",
-          "prix_par_transporteur": {
-            "VEYSSET": 390,
-            "LACHAUD": 400,
-            "CONTE": 510
-          }
-        },
-        {
-          "departement": "34 - Hérault",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 717,
-            "VEYSSET": 720
-          }
-        },
-        {
-          "departement": "36 - Indre",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 460,
-            "CONTE": 525
-          }
-        },
-        {
-          "departement": "38 - Isère",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 760,
-            "CONTE": 802
-          }
-        },
-        {
-          "departement": "4 - Alpes Haute Provence",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 1086,
-            "VEYSSET": 1240
-          }
-        },
-        {
-          "departement": "40 - Landes",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 540,
-            "CONTE": 601
-          }
-        },
-        {
-          "departement": "42 - Loire",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 580,
-            "CONTE": 657
-          }
-        },
-        {
-          "departement": "43 - Haute Loire",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 580,
-            "CONTE": 581
-          }
-        },
-        {
-          "departement": "46 - Lot ZONE A",
-          "prix_par_transporteur": {
-            "CONTE": 290,
-            "VEYSSET": 300,
-            "LACHAUD": 362
-          }
-        },
-        {
-          "departement": "46 - Lot ZONE B",
-          "prix_par_transporteur": {
-            "VEYSSET": 360,
-            "LACHAUD": 362,
-            "CONTE": 380
-          }
-        },
-        {
-          "departement": "47 - Lot et Garonne",
-          "prix_par_transporteur": {
-            "LACHAUD": 360,
-            "VEYSSET": 430,
-            "CONTE": 445
-          }
-        },
-        {
-          "departement": "48 - Lozère",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 630,
-            "CONTE": 650
-          }
-        },
-        {
-          "departement": "5 - Hautes Alpes",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 1015,
-            "VEYSSET": 1180
-          }
-        },
-        {
-          "departement": "6 - Alpes Maritime",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 1130,
-            "CONTE": 1206
-          }
-        },
-        {
-          "departement": "63 - Puy de Dome",
-          "prix_par_transporteur": {
-            "VEYSSET": 390,
-            "LACHAUD": 400,
-            "CONTE": 430
-          }
-        },
-        {
-          "departement": "64 - Pyrénéés Atlantique",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 620,
-            "CONTE": 690
-          }
-        },
-        {
-          "departement": "65 - Hautes Pyrénées",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 620,
-            "CONTE": 622
-          }
-        },
-        {
-          "departement": "66 - Pyrénées Orientales",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 620,
-            "CONTE": 750
-          }
-        },
-        {
-          "departement": "69 - Rhône",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 620,
-            "CONTE": 672
-          }
-        },
-        {
-          "departement": "7 - Ardèche",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 764,
-            "VEYSSET": 840
-          }
-        },
-        {
-          "departement": "73 - Savoie",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 770,
-            "CONTE": 906
-          }
-        },
-        {
-          "departement": "74 - Haute Savoie",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 820,
-            "CONTE": 972
-          }
-        },
-        {
-          "departement": "81 - Tarn",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 440,
-            "CONTE": 525
-          }
-        },
-        {
-          "departement": "82 - Tarn et Garonne",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 360,
-            "CONTE": 420
-          }
-        },
-        {
-          "departement": "83 - Var",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 1030,
-            "CONTE": 1091
-          }
-        },
-        {
-          "departement": "84 - Vaucluse",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "VEYSSET": 880,
-            "CONTE": 939
-          }
-        },
-        {
-          "departement": "9 - Ariège",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 590,
-            "VEYSSET": 600
-          }
-        },
-        {
-          "departement": "87 - Haute Vienne Zone A",
-          "prix_par_transporteur": {
-            "LACHAUD": 330,
-            "VEYSSET": 330,
-            "CONTE": 340
-          }
-        },
-        {
-          "departement": "87 - Haute Vienne Zone B",
-          "prix_par_transporteur": {
-            "LACHAUD": 0,
-            "CONTE": 340,
-            "VEYSSET": 380
           }
         }
       ]
